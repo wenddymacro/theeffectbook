@@ -1,0 +1,132 @@
+\expandafter\ifx\csname doTocEntry\endcsname\relax \expandafter\endinput\fi 
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{1}{x1-1000}{QQ2-1-1}{}}{2}\relax 
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{1}{x1-2000}{QQ2-1-2}{特别声明}}{2}\relax 
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{1}{x1-3000}{QQ2-1-3}{}}{3}\relax 
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{1}{x1-4000}{QQ2-1-4}{目录}}{3}\relax 
+\doTocEntry\tocchapter{1}{\csname a:TocLink\endcsname{1}{x1-50001}{QQ2-1-5}{引言}}{2}\relax 
+\doTocEntry\tocsection{1.1}{\csname a:TocLink\endcsname{1}{x1-60001}{QQ2-1-6}{计量经济学是什么？}}{3}\relax 
+\doTocEntry\tocsection{1.2}{\csname a:TocLink\endcsname{1}{x1-70002}{QQ2-1-7}{计量经济学的方法}}{4}\relax 
+\doTocEntry\tocsection{1.3}{\csname a:TocLink\endcsname{1}{x1-80003}{QQ2-1-8}{计量经济学概念}}{4}\relax 
+\doTocEntry\tocsection{1.4}{\csname a:TocLink\endcsname{1}{x1-90004}{QQ2-1-9}{数据、数据结构与数据来源}}{6}\relax 
+\doTocEntry\tocsubsection{1.4.1}{\csname a:TocLink\endcsname{1}{x1-100001}{QQ2-1-10}{观测数据}}{6}\relax 
+\doTocEntry\tocsubsection{1.4.2}{\csname a:TocLink\endcsname{1}{x1-110002}{QQ2-1-11}{数据结构}}{6}\relax 
+\doTocEntry\tocsubsection{1.4.3}{\csname a:TocLink\endcsname{1}{x1-120003}{QQ2-1-12}{数据来源}}{6}\relax 
+\doTocEntry\tocsection{1.5}{\csname a:TocLink\endcsname{1}{x1-130005}{QQ2-1-13}{计量软件}}{7}\relax 
+\doTocEntry\tocsection{1.6}{\csname a:TocLink\endcsname{1}{x1-140006}{QQ2-1-14}{进一步阅读资料}}{7}\relax 
+\doTocEntry\tocchapter{2}{\csname a:TocLink\endcsname{1}{x1-150002}{QQ2-1-15}{概率与统计基础}}{8}\relax 
+\doTocEntry\tocsection{2.1}{\csname a:TocLink\endcsname{1}{x1-160001}{QQ2-1-16}{概率论}}{8}\relax 
+\doTocEntry\tocsubsection{2.1.1}{\csname a:TocLink\endcsname{1}{x1-170001}{QQ2-1-17}{单变量分布}}{8}\relax 
+\doTocEntry\tocsubsubsection{2.1.1.1}{\csname a:TocLink\endcsname{1}{x1-180001}{QQ2-1-18}{基本概念}}{8}\relax 
+\doTocEntry\toclot{}{\csname a:TocLink\endcsname{1}{x1-18002}{}{\numberline {2.1}{\ignorespaces 随机变量概率\relax }}}{8}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-18004}{}{\numberline {2.1}{\ignorespaces 伯努利分布：来源于百度图片\relax }}}{11}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-18006}{}{\numberline {2.2}{\ignorespaces 概率密度函数：来源于Stock and Watson，2015，pp18\relax }}}{14}\relax 
+\doTocEntry\tocsubsubsection{2.1.1.2}{\csname a:TocLink\endcsname{1}{x1-190002}{QQ2-1-22}{主要统计量}}{15}\relax 
+\doTocEntry\tocsubsection{2.1.2}{\csname a:TocLink\endcsname{1}{x1-200002}{QQ2-1-23}{多变量分布}}{18}\relax 
+\doTocEntry\tocsubsection{2.1.3}{\csname a:TocLink\endcsname{1}{x1-210003}{QQ2-1-24}{常用分布}}{24}\relax 
+\doTocEntry\tocsubsubsection{2.1.3.1}{\csname a:TocLink\endcsname{1}{x1-220001}{QQ2-1-25}{正态分布}}{24}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-22002}{}{\numberline {2.3}{\ignorespaces 正态概率密度函数：来源于Stock and Watson，2015，pp36\relax }}}{26}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-22005}{}{\numberline {2.4}{\ignorespaces 标准正态分布函数:来源于Brown，2010\relax }}}{29}\relax 
+\doTocEntry\tocsubsubsection{2.1.3.2}{\csname a:TocLink\endcsname{1}{x1-230002}{QQ2-1-28}{卡方分布}}{31}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-23005}{}{\numberline {2.5}{\ignorespaces 卡方分布函数:来源于Brown，2010\relax }}}{34}\relax 
+\doTocEntry\tocsubsubsection{2.1.3.3}{\csname a:TocLink\endcsname{1}{x1-240003}{QQ2-1-30}{t分布}}{35}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-24003}{}{\numberline {2.6}{\ignorespaces t分布函数:来源于Brown，2010\relax }}}{37}\relax 
+\doTocEntry\tocsubsubsection{2.1.3.4}{\csname a:TocLink\endcsname{1}{x1-250004}{QQ2-1-32}{F分布}}{38}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-25003}{}{\numberline {2.7}{\ignorespaces F分布函数:来源于Brown，2010\relax }}}{40}\relax 
+\doTocEntry\tocsubsection{2.1.4}{\csname a:TocLink\endcsname{1}{x1-260004}{QQ2-1-34}{随机抽样与大样本近似}}{41}\relax 
+\doTocEntry\tocsubsubsection{2.1.4.1}{\csname a:TocLink\endcsname{1}{x1-270001}{QQ2-1-35}{随机抽样与样本矩}}{41}\relax 
+\doTocEntry\tocsubsubsection{2.1.4.2}{\csname a:TocLink\endcsname{1}{x1-280002}{QQ2-1-36}{大样本近似}}{43}\relax 
+\doTocEntry\tocsubsection{2.1.5}{\csname a:TocLink\endcsname{1}{x1-290005}{QQ2-1-37}{小结}}{43}\relax 
+\doTocEntry\tocsection{2.2}{\csname a:TocLink\endcsname{1}{x1-300002}{QQ2-1-38}{统计学概述}}{44}\relax 
+\doTocEntry\tocsubsection{2.2.1}{\csname a:TocLink\endcsname{1}{x1-310001}{QQ2-1-39}{估计}}{44}\relax 
+\doTocEntry\tocsubsection{2.2.2}{\csname a:TocLink\endcsname{1}{x1-320002}{QQ2-1-40}{假设检验}}{45}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-32004}{}{\numberline {2.8}{\ignorespaces p值:来源于Stock and Watson，2015，pp74\relax }}}{48}\relax 
+\doTocEntry\tocsubsection{2.2.3}{\csname a:TocLink\endcsname{1}{x1-330003}{QQ2-1-42}{置信区间}}{50}\relax 
+\doTocEntry\tocsection{2.3}{\csname a:TocLink\endcsname{1}{x1-340003}{QQ2-1-43}{贝叶斯统计概述}}{50}\relax 
+\doTocEntry\tocsection{2.4}{\csname a:TocLink\endcsname{1}{x1-350004}{QQ2-1-44}{附录}}{51}\relax 
+\doTocEntry\tocchapter{3}{\csname a:TocLink\endcsname{1}{x1-360003}{QQ2-1-45}{一元线性回归}}{52}\relax 
+\doTocEntry\tocsection{3.1}{\csname a:TocLink\endcsname{1}{x1-370001}{QQ2-1-46}{线性回归模型估计}}{52}\relax 
+\doTocEntry\tocsubsection{3.1.1}{\csname a:TocLink\endcsname{1}{x1-380001}{QQ2-1-47}{线性回归模型}}{52}\relax 
+\doTocEntry\tocsubsection{3.1.2}{\csname a:TocLink\endcsname{1}{x1-390002}{QQ2-1-48}{系数估计}}{55}\relax 
+\doTocEntry\toclot{}{\csname a:TocLink\endcsname{1}{x1-39002}{}{\numberline {3.1}{\ignorespaces 测试分数与师生比的分布\relax }}}{57}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-39004}{}{\numberline {3.1}{\ignorespaces 学生-老师比与分数散点图\relax }}}{60}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-39012}{}{\numberline {3.2}{\ignorespaces stata结果\relax }}}{65}\relax 
+\doTocEntry\tocsubsection{3.1.3}{\csname a:TocLink\endcsname{1}{x1-400003}{QQ2-1-52}{拟合度}}{66}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-40008}{}{\numberline {3.3}{\ignorespaces 回归线\relax }}}{71}\relax 
+\doTocEntry\tocsubsection{3.1.4}{\csname a:TocLink\endcsname{1}{x1-410004}{QQ2-1-54}{最小二乘的假设}}{72}\relax 
+\doTocEntry\tocsection{3.2}{\csname a:TocLink\endcsname{1}{x1-420002}{QQ2-1-55}{假设检验和置信区间}}{72}\relax 
+\doTocEntry\tocsubsection{3.2.1}{\csname a:TocLink\endcsname{1}{x1-430001}{QQ2-1-56}{回归系数的假设检验}}{72}\relax 
+\doTocEntry\tocsubsection{3.2.2}{\csname a:TocLink\endcsname{1}{x1-440002}{QQ2-1-57}{置信区间}}{75}\relax 
+\doTocEntry\tocsubsection{3.2.3}{\csname a:TocLink\endcsname{1}{x1-450003}{QQ2-1-58}{虚拟变量}}{76}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-45005}{}{\numberline {3.4}{\ignorespaces 虚拟变量回归结果\relax }}}{80}\relax 
+\doTocEntry\tocsection{3.3}{\csname a:TocLink\endcsname{1}{x1-460003}{QQ2-1-60}{STATA教程（一）}}{81}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-46002}{}{\numberline {3.5}{\ignorespaces stata界面\relax }}}{83}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-46004}{}{\numberline {3.6}{\ignorespaces 数据输入界面\relax }}}{86}\relax 
+\doTocEntry\toclot{}{\csname a:TocLink\endcsname{1}{x1-46006}{}{\numberline {3.2}{\ignorespaces 输入数据\relax }}}{89}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-46008}{}{\numberline {3.7}{\ignorespaces 数据输入界面\relax }}}{92}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-46010}{}{\numberline {3.8}{\ignorespaces 数据输入界面\relax }}}{95}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-46012}{}{\numberline {3.9}{\ignorespaces 数据输入界面\relax }}}{98}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-46014}{}{\numberline {3.10}{\ignorespaces 数据输入界面\relax }}}{101}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-46016}{}{\numberline {3.11}{\ignorespaces 数据输入界面\relax }}}{104}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-46018}{}{\numberline {3.12}{\ignorespaces 数据输入界面\relax }}}{107}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-46020}{}{\numberline {3.13}{\ignorespaces 观测值列表\relax }}}{113}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-46022}{}{\numberline {3.14}{\ignorespaces 统计量\relax }}}{116}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-46024}{}{\numberline {3.15}{\ignorespaces 散点图\relax }}}{119}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-46026}{}{\numberline {3.16}{\ignorespaces 拟合线\relax }}}{122}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-46028}{}{\numberline {3.17}{\ignorespaces 简单回归结果\relax }}}{125}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-46030}{}{\numberline {3.18}{\ignorespaces 稳健标准误回归结果\relax }}}{128}\relax 
+\doTocEntry\tocchapter{4}{\csname a:TocLink\endcsname{1}{x1-470004}{QQ2-1-76}{多元线性回归}}{130}\relax 
+\doTocEntry\tocsection{4.1}{\csname a:TocLink\endcsname{1}{x1-480001}{QQ2-1-77}{遗漏变量偏误}}{130}\relax 
+\doTocEntry\tocsubsection{4.1.1}{\csname a:TocLink\endcsname{1}{x1-490001}{QQ2-1-78}{遗漏变量偏误的定义}}{130}\relax 
+\doTocEntry\tocsection{4.2}{\csname a:TocLink\endcsname{1}{x1-500002}{QQ2-1-79}{多元回归模型}}{131}\relax 
+\doTocEntry\tocsubsection{4.2.1}{\csname a:TocLink\endcsname{1}{x1-510001}{QQ2-1-80}{多元回归中的OLS估计量}}{133}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-51005}{}{\numberline {4.1}{\ignorespaces 多元回归结果\relax }}}{137}\relax 
+\doTocEntry\tocsubsection{4.2.2}{\csname a:TocLink\endcsname{1}{x1-520002}{QQ2-1-82}{拟合度}}{138}\relax 
+\doTocEntry\tocsubsection{4.2.3}{\csname a:TocLink\endcsname{1}{x1-530003}{QQ2-1-83}{多元回归中的OLS假设}}{140}\relax 
+\doTocEntry\tocsection{4.3}{\csname a:TocLink\endcsname{1}{x1-540003}{QQ2-1-84}{假设检验与置信区间}}{141}\relax 
+\doTocEntry\tocsubsection{4.3.1}{\csname a:TocLink\endcsname{1}{x1-550001}{QQ2-1-85}{单系数假设检验与置信区间}}{141}\relax 
+\doTocEntry\tocsubsubsection{4.3.1.1}{\csname a:TocLink\endcsname{1}{x1-560001}{QQ2-1-86}{单系数假设检验}}{141}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-56005}{}{\numberline {4.2}{\ignorespaces 标准误、t统计量和p值\relax }}}{145}\relax 
+\doTocEntry\tocsubsubsection{4.3.1.2}{\csname a:TocLink\endcsname{1}{x1-570002}{QQ2-1-88}{置信区间}}{146}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-57003}{}{\numberline {4.3}{\ignorespaces 加入生均支出的回归结果\relax }}}{148}\relax 
+\doTocEntry\tocsubsection{4.3.2}{\csname a:TocLink\endcsname{1}{x1-580002}{QQ2-1-90}{联合假设检验}}{149}\relax 
+\doTocEntry\tocsubsubsection{4.3.2.1}{\csname a:TocLink\endcsname{1}{x1-590001}{QQ2-1-91}{F统计量}}{150}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-59005}{}{\numberline {4.4}{\ignorespaces F统计量\relax }}}{153}\relax 
+\doTocEntry\tocsubsection{4.3.3}{\csname a:TocLink\endcsname{1}{x1-600003}{QQ2-1-93}{多元回归模型设定}}{154}\relax 
+\doTocEntry\tocsection{4.4}{\csname a:TocLink\endcsname{1}{x1-610004}{QQ2-1-94}{多元回归Stata操作示例}}{155}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-61002}{}{\numberline {4.5}{\ignorespaces 测试分数与非英语母语学生比例\relax }}}{158}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-61004}{}{\numberline {4.6}{\ignorespaces 测试分数与接受免费午餐的学生比例\relax }}}{161}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-61006}{}{\numberline {4.7}{\ignorespaces 测试分数与接受收入援助的学生比例\relax }}}{164}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-61008}{}{\numberline {4.8}{\ignorespaces 相关系数\relax }}}{167}\relax 
+\doTocEntry\toclot{}{\csname a:TocLink\endcsname{1}{x1-61010}{}{\numberline {4.1}{\ignorespaces 多元回归结果\relax }}}{168}\relax 
+\doTocEntry\tocchapter{5}{\csname a:TocLink\endcsname{1}{x1-620005}{QQ2-1-100}{识别的评价框架}}{174}\relax 
+\doTocEntry\tocsection{5.1}{\csname a:TocLink\endcsname{1}{x1-630001}{QQ2-1-101}{内部有效性和外部有效性框架}}{174}\relax 
+\doTocEntry\tocsubsection{5.1.1}{\csname a:TocLink\endcsname{1}{x1-640001}{QQ2-1-102}{内部有效性}}{174}\relax 
+\doTocEntry\tocsubsection{5.1.2}{\csname a:TocLink\endcsname{1}{x1-650002}{QQ2-1-103}{外部有效性}}{175}\relax 
+\doTocEntry\tocsection{5.2}{\csname a:TocLink\endcsname{1}{x1-660002}{QQ2-1-104}{内部有效性的威胁}}{175}\relax 
+\doTocEntry\tocsubsection{5.2.1}{\csname a:TocLink\endcsname{1}{x1-670001}{QQ2-1-105}{遗漏变量偏误}}{176}\relax 
+\doTocEntry\tocsubsection{5.2.2}{\csname a:TocLink\endcsname{1}{x1-680002}{QQ2-1-106}{函数形式误设}}{177}\relax 
+\doTocEntry\tocsubsection{5.2.3}{\csname a:TocLink\endcsname{1}{x1-690003}{QQ2-1-107}{测量误差}}{177}\relax 
+\doTocEntry\tocsubsection{5.2.4}{\csname a:TocLink\endcsname{1}{x1-700004}{QQ2-1-108}{缺失数据和样本选择}}{178}\relax 
+\doTocEntry\tocsubsection{5.2.5}{\csname a:TocLink\endcsname{1}{x1-710005}{QQ2-1-109}{双向因果}}{178}\relax 
+\doTocEntry\tocsubsection{5.2.6}{\csname a:TocLink\endcsname{1}{x1-720006}{QQ2-1-110}{OLS标准误的不一致性}}{179}\relax 
+\doTocEntry\tocsection{5.3}{\csname a:TocLink\endcsname{1}{x1-730003}{QQ2-1-111}{再论遗漏变量偏误}}{180}\relax 
+\doTocEntry\tocsection{5.4}{\csname a:TocLink\endcsname{1}{x1-740004}{QQ2-1-112}{小班教学及其Stata操作}}{180}\relax 
+\doTocEntry\tocsubsection{5.4.1}{\csname a:TocLink\endcsname{1}{x1-750001}{QQ2-1-113}{外部有效性}}{180}\relax 
+\doTocEntry\toclot{}{\csname a:TocLink\endcsname{1}{x1-75002}{}{\numberline {5.1}{\ignorespaces 样本比较\relax }}}{180}\relax 
+\doTocEntry\tocsection{5.5}{\csname a:TocLink\endcsname{1}{x1-760005}{QQ2-1-115}{总结}}{181}\relax 
+\doTocEntry\tocchapter{6}{\csname a:TocLink\endcsname{1}{x1-770006}{QQ2-1-116}{面板数据模型}}{183}\relax 
+\doTocEntry\tocsection{6.1}{\csname a:TocLink\endcsname{1}{x1-780001}{QQ2-1-117}{面板数据}}{184}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-78002}{}{\numberline {6.1}{\ignorespaces 平衡面板\relax }}}{186}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-78004}{}{\numberline {6.2}{\ignorespaces 非平衡面板\relax }}}{189}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-78007}{}{\numberline {6.3}{\ignorespaces 1982年交通死亡率与酒精税\relax }}}{192}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-78010}{}{\numberline {6.4}{\ignorespaces 1988年交通死亡率与酒精税\relax }}}{195}\relax 
+\doTocEntry\tocsection{6.2}{\csname a:TocLink\endcsname{1}{x1-790002}{QQ2-1-122}{固定效应回归}}{196}\relax 
+\doTocEntry\tocsubsection{6.2.1}{\csname a:TocLink\endcsname{1}{x1-800001}{QQ2-1-123}{两期“比较”}}{196}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-80006}{}{\numberline {6.5}{\ignorespaces 1982、1988年交通死亡率与酒精税\relax }}}{200}\relax 
+\doTocEntry\tocsubsection{6.2.2}{\csname a:TocLink\endcsname{1}{x1-810002}{QQ2-1-125}{固定效应回归}}{201}\relax 
+\doTocEntry\tocsubsection{6.2.3}{\csname a:TocLink\endcsname{1}{x1-820003}{QQ2-1-126}{例子}}{207}\relax 
+\doTocEntry\toclof{}{\csname a:TocLink\endcsname{1}{x1-82002}{}{\numberline {6.6}{\ignorespaces 交通死亡率与酒精税\relax }}}{209}\relax 
+\doTocEntry\tocchapter{7}{\csname a:TocLink\endcsname{1}{x1-830007}{QQ2-1-128}{工具变量法}}{211}\relax 
+\doTocEntry\tocsection{7.1}{\csname a:TocLink\endcsname{1}{x1-840001}{QQ2-1-129}{一元回归与单工具变量}}{211}\relax 
+\doTocEntry\tocsubsection{7.1.1}{\csname a:TocLink\endcsname{1}{x1-850001}{QQ2-1-130}{教育对收入的效应：出生季度作为工具变量}}{213}\relax 
+\par 

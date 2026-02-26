@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html><head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<meta content="许文立" name="author"/>
+<meta content="2026-02-26" name="dcterms.date"/>
+<title>应用计量经济学讲稿</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</head><body><div class="book-topbar">
+<a class="pdf-btn" download="" href="../assets/pdf/AppliedEconometrics.pdf">下载 PDF 版本</a>
+<span class="hint">若在线阅读异常，可直接下载 PDF。</span>
+</div><div class="page-shell"><aside class="sidebar-nav"><nav aria-label="章节导航" class="chapter-nav"><h2>章节目录</h2><ul><li><a href="chapter-01.html">特别声明</a></li><li><a href="chapter-02.html">第1章：引言</a></li><li><a href="chapter-03.html">第2章：概率与统计基础</a></li><li><a href="chapter-04.html">第3章：一元线性回归</a></li><li><a href="chapter-05.html">第4章：多元线性回归</a></li><li><a href="chapter-06.html">第5章：识别的评价框架</a></li><li><a href="chapter-07.html">第6章：面板数据模型</a></li><li><a href="chapter-08.html">第7章：工具变量法</a></li><li><a href="chapter-09.html">第8章：双重差分(DID)</a></li><li><a href="chapter-10.html">第9章：断点回归设计（RDD）</a></li><li><a href="chapter-11.html">第10章：其他因果效应识别方法</a></li><li><a href="chapter-12.html">第11章：合成控制法</a></li><li><a href="chapter-13.html">第12章：事件研究</a></li><li><a class="is-current" href="chapter-14.html">第13章：时间序列的自回归模型</a></li><li><a href="chapter-15.html">第14章：动态随机一般均衡模型</a></li><li><a href="chapter-16.html">第15章：极简CGE：一个教学式模型</a></li><li><a href="chapter-17.html">第16章：如何讲好经济学故事：经济学论文的流行形式</a></li><li><a href="chapter-18.html">第17章：基本数学工具</a></li></ul></nav></aside><main class="chapter-main"><p class="back-home"><a href="../index.html">← 返回封面</a></p><h1 id="时间序列的自回归模型">时间序列的自回归模型</h1><h2 id="自回归模型">自回归模型</h2><p>当我们在进行事件研究时，我们实际上有事件发生后的数据，但我们还需要预测出如果没有发生该事件，这段时期的反事实数据，然后将实际数据与反事实数据进行比较。这里有一个前提假设：如果没有事件发生，事件发生前的变化趋势会持续。也就是说，我们可以利用事件前的时间序列来预测事件后的变化。本讲稿前面的内容在估计处理效应是，都是利用截面数据或者面板数据来预测反事实对照组，那么，我们如何利用时间序列数据来预测反事实变化趋势呢？</p><p>技术上来说，google股票收益率的例子也是时间序列预测的一种形式，它用估计期的收益率来预测事件窗口期的平均收益率，进而用事件窗口期的实际收益率与预测的反事实收益率进行比较，得到异常收益率AR，最终得到更名事件对谷歌股票收益率的效应。但实际上的时间序列预测方法需要更加关注数据的时间维度——观测值的时间相关性。例如，如果在t期发生了一个事件，导致了处理发生作用，那么，这个处理不仅仅在t期产生作用，可能还会随着时间推移持续发生作用。这会给统计估计和预测带来许多挑战，传统的计量方法可能不适用了，我们需要借助于专门的时间序列估计和预测方法。</p><p>下面，我们从一个时间序列的例子来介绍时间序列方法。今年是美国911飞机劫持事件20周年。飞机劫持事件会造成非常严重的后果，例如，财产损失，人命关天等等。实际上，飞机劫持事件非常多，从<a href="https://ourworldindata.org/terrorism">Our World in
+Data</a>上的统计可以看出，在飞机出现的时候，就伴随着飞机劫持等恐怖事件出现了。为了应对飞机劫持事件，美国在1973年引入了金属探测器，随后全球开始采用这一措施来降低飞机劫持事件。我们从<a href="https://ourworldindata.org/terrorism">Our World in
+Data</a>网址下载全球20世纪初-2017年的飞机劫持事件数据，20世纪60年代以来的飞机劫持事件数据如图11.4所示。从图中可以看到，1973年后，飞机劫持事件的确大幅下降了。那么，我们感兴趣的问题就来了：<strong>安装金属探测器的安检措施对飞机劫持事件的效应有多大呢？</strong>这个时候，我们可以会用上述股票收益率的办法来估计安检措施的效应。</p><p>用<span class="math inline">\(\{y_t\}\)</span>表示全球飞机劫持事件的数量。首先，我们计算得到1973年以前的飞机劫持事件数的均值；然后，计算1973年后的飞机劫持事件的均值；再然后，假设没有安装金属探测器时，1973年的飞机劫持事件数量会遵循1973年前的趋势变化，因此，就可以预测得到反事实下的1973年后飞机劫持事件均值与1973年相同；最后，比较反事实预测值与实际值，得到金属探测器的效应。</p><figure data-latex-placement="tbph" id="fig:hijacking">
+<img src="../assets/images/ch14/hijacking.png" style="width:100.0%;height:50.0%"/>
+<figcaption>全球飞机劫持事件的年度数量</figcaption>
+</figure><p>但是，这种方法过于简单了。它忽略了时间序列数据<span class="math inline">\(\{y_t\}\)</span>的序列相关问题。因此，我们可以时间专门的时间序列方法来进行事件研究。例如，Enders,
+Sandler, and Cauley
+(1990)利用下列时间序列回归模型研究了金属探测器对飞机劫持事件的效应：</p><p><span class="math display">\[\begin{equation}
+        y_t = a_0 +a_1 y_{t-1} +c_0 z_t +\epsilon_t, |a_1|&lt;1
+    
+\end{equation}\]</span></p><p>其中，<span class="math inline">\(z_t\)</span>表示处理变量，例如，安装了金属探测器的年份为1，没有安装的年份为0。</p><p>而且，在方程（11.1）中，上一期的<span class="math inline">\(y_{t-1}\)</span>的值会影响到本期<span class="math inline">\(y_t\)</span>的值，这被称为<strong>自回归</strong>。自回归表达的是一个时间序列变量<span class="math inline">\(y_t\)</span>的条件均值是其自身滞后值的线性函数。例如，我今天在银行存了100块钱，不仅仅增加了我银行账户当前的存款，还增加了明天的存款，且还有额外的利息，只要我不取出来，就会持续的产生利息，增加我的账户金额。这就是自回归。方程（11.1）是一个一阶自回归AR(1)，括号中的1意味着仅仅只有最近一期y的值对于本期的预测值y来说至关重要。即如果我们想要预期某一年的飞机劫持事件数，那么，我们只需要知道上一年的飞机劫持事件数即可。因此，一阶自回归仅仅只使用<span class="math inline">\(y_t\)</span>的一阶滞后值<span class="math inline">\(y_{t-1}\)</span>。</p><p>下面，我们来看看这个模型的性质。注意，对于1973年前，<span class="math inline">\(z_t=0\)</span>。因此，<span class="math inline">\(a_0\)</span>就是曲线的截距项，而此时我们可以求得飞机劫持事件数的长期均值为<span class="math inline">\(\frac{a_0}{1-a_1}\)</span>。从1973年开始，<span class="math inline">\(z_t=1\)</span>，此时，截距项变成了<span class="math inline">\(a_0+c_0\)</span>，因此，金属探测器的初始效应就是应该是<span class="math inline">\(c_0\)</span>。这个效应的统计显著性也可以利用传统的t统计量来进行检验。例如，我们利用样本数据来跑回归：</p><pre><code>        *加载数据
+        
+        use "/Users/xuwenli/OneDrive/DSGE建模及软件编程/教学大纲与讲稿/应用计量经济学讲稿/应用计量经济学讲稿与code/data/hijacking.dta",repalce
+        
+        * 创建虚拟变量
+        
+        gen z =0 if year&gt;=1966
+        
+        replace z=1 if year&gt;=1973
+        
+        * ols回归
+        
+        reg hji L.hji z,r
+        </code></pre><p>上述回归结果显示，<span class="math inline">\(\hat{c}_0=-16.6\)</span>，而且在10%的水平下显著。也就是说，安装金属探测器在初始期会降低飞机劫持事件数16.6起。</p><p>到这里结束了吗？我们想想，当1973年安装金属探测器后，1973年的飞机劫持事件数会下降，而根据自回归模型的性质，1973年的飞机劫持事件数又会影响到1974年的飞机劫持事件数，1974年的飞机劫持事件数又会影响到1975年的飞机劫持事件数，依次递推，1973年后的每一年都会受到影响，这种长期效应应该是新的长期均值<span class="math inline">\(\frac{a_0+c_0}{1-a_1}\)</span>减去没有金属探测器时的长期均值<span class="math inline">\(\frac{a_0}{1-a_1}\)</span>，即安装金属探测器的长期效应为<span class="math inline">\(\frac{c_0}{1-a_1}\)</span>。可能我们更感兴趣地是安装金属探测器对每一年的暂时效应为多大，这个时候我们可以借助于脉冲响应函数（IRF,
+impulse response
+function）。下面我们用简单的数学公式来看看什么是脉冲响应。我们迭代方程（11.1），得到</p><p><span class="math display">\[\begin{align*}
+        y_t &amp; = a_0 +a_1 y_{t-1} +c_0 z_t +\epsilon_t \\
+        &amp;  = a_0 +a_1 (a_0 +a_1 y_{t-2} +c_0 z_{t-1}
++\epsilon_{t-1}) +c_0 z_t +\epsilon_t \\
+        &amp; = a_0(1 +a_1) + a_1^2 y_{t-2} +c_0 (z_t+a_1
+z_{t-1})+(\epsilon_t+a_1 \epsilon_{t-1})\\
+        &amp; = ... \\
+        &amp; = \frac{a_0}{1-a_1} +c_0 \sum_{i=0}^{\infty}a_1^i z_{t-i}
++\sum_{i=0}^{\infty}a_1^i \epsilon_{t-i}\\
+    
+\end{align*}\]</span></p><p>上述方程就是脉冲响应函数。利用这个函数，我们可以得到<span class="math inline">\(y_t\)</span>对一个事件/处理变量<span class="math inline">\(z_t\)</span>的外生变动/冲击(在信号学中称为“脉冲”)的响应序列。例如，为了追踪金属探测器对劫机事件的效应，假设t=1973，t+1=1974等等。对于t期，<span class="math inline">\(z_t\)</span>对于<span class="math inline">\(y_t\)</span>的影响就是<span class="math inline">\(c_0\)</span>。据此，我们对<span class="math inline">\(y_{t+1}\)</span>求关于<span class="math inline">\(z_t\)</span>的偏导数：</p><p><span class="math display">\[\frac{\partial y_{t+1}}{\partial z_t} =
+c_0+c_0a_1\]</span></p><p><span class="math inline">\(c_0\)</span>项表示<span class="math inline">\(z_{t+1}\)</span>对<span class="math inline">\(y_{t+1}\)</span>的直接效应，而<span class="math inline">\(c_0a_1\)</span>项则反应了<span class="math inline">\(z_t\)</span>对<span class="math inline">\(y_t\)</span>的效应(=<span class="math inline">\(c_0\)</span>)乘以<span class="math inline">\(y_t\)</span>对<span class="math inline">\(y_{t+1}\)</span>的效应(=<span class="math inline">\(a_1\)</span>)。按照这种方式，我们可以追踪到整个脉冲响应函数：</p><p><span class="math display">\[\frac{\partial y_{t+j}}{\partial z_t} =
+c_0(1+a_1+...+a_1^j)\]</span></p><p>随着时间的推移，即j趋向于无穷，我们可以得到长期效应就是<span class="math inline">\(\frac{c_0}{1-a_1}\)</span>。如果假设<span class="math inline">\(0&lt;a_1&lt;1\)</span>，随着时间的推移，结果变量对干预/处理/政策的响应程度越来越大。如果<span class="math inline">\(-1&lt;a_1&lt;0\)</span>，政策对于<span class="math inline">\(y_t\)</span>的效应就会震荡衰退。在初始效应为<span class="math inline">\(c_0\)</span>后，<span class="math inline">\(y_t\)</span>序列的响应会震荡衰退，趋向于长期效应水平<span class="math inline">\(\frac{c_0}{1-a_1}\)</span>。</p><p>需要特别注意的是，现实世界中的政策干预/冲击不仅仅只有图11.5左上角那种“恒久性冲击”——1973年安装了金属探测器，以后每一年都有，或者1973年后政策干预变量从0变为1。除此之外，还有三种冲击类型：（1）如图11.5右上角的“临时性冲击”，政策变量只在1973年从0变为1，其它年份仍然为0，此时，由于自回归的性质，临时性冲击的效应也可能持续很多期；（2）如图11.5下方的“逐渐变化的冲击”，也可能逐渐递增，也可能逐渐递减。</p><figure data-latex-placement="tbph" id="fig:shocktype">
+<img src="../assets/images/ch14/shock_type.png" style="width:80.0%"/>
+<figcaption>冲击类型</figcaption>
+</figure><p>用时间序列数据来进行预测需要满足平稳性假设，如果平稳性假设不满足，那么，传统的假设检验、置信区间和预测就不可靠了。时间序列数据中经常出现两种类型的非平稳性：趋势和断点。</p><p>这些问题也需要增加阐述！</p><h2 id="向量自回归模型">向量自回归模型</h2><p>这一节的内容主要来自于Stata Blog关于Stata中的<a href="https://blog.stata.com/2016/08/09/vector-autoregressions-in-stata/">VAR</a>和<a href="https://blog.stata.com/2016/09/20/structural-vector-autoregression-models/">结构VAR</a>描述。</p><h3 id="var">VAR</h3><p>在上文的单变量自回归中，时间序列<span class="math inline">\(y_t\)</span>可以建模成自身滞后值的函数。如果我们想要分析多个时间序列变量时，一个自然的扩展就是向量自回归（VAR，vector
+autoregression），顾名思义，就是将多变量的向量建模成自身滞后值和向量中其它变量滞后值的函数。例如一个两变量一阶VAR模型为：</p><p><span class="math display">\[\begin{align*}
+        &amp;   y_t =a_0 +a_1 y_{t-1} +a_2 x_{t-1} +\epsilon_{1,t} \\
+        &amp;   x_t =b_0 +b_1 x_{t-1} +b_2 y_{t-1}+\epsilon_{2,t}\\
+        
+\end{align*}\]</span></p><p>应用宏观经济学家用这类模型来描述宏观经济数据，也用它们来执行因果推断和政策分析。下面，我们利用VAR模型来分析一些有趣的宏观经济与政策问题。</p><p>在利用向量自回归模型之前，我们肯定要收集数据，也就是在VAR模型中包含哪些宏观经济变量。变量选择要依据我们研究的问题和相关的理论来给出指导。此外，我们还要选择滞后期。此时，我们可以尝试一期一期滞后的加进VAR模型中，或者使用stata中提供的一些正式的滞后期选择标准来进行决策。下面，我们用美国1970年一季度-2021年一季度的宏观经济变量——失业率（ur）、通胀率（inflation）和名义利率（ffr）——来说明VAR的应用。我们可以将这个三变量的VAR模型写成：</p><p><span class="math display">\[\begin{equation}
+        \left[
+        \begin{array}{c}
+            inflation_t \\
+            ur_t \\
+            ffr_t
+        \end{array}
+        \right]
+        =A_0 +A_1
+        \left[
+        \begin{array}{c}
+        inflation_{t-1} \\
+        ur_{t-1} \\
+        ffr_{t-1}
+            \end{array}
+        \right]
+        + \cdots+A_k
+        \left[
+        \begin{array}{c}
+        inflation_{t-k} \\
+        ur_{t-k} \\
+        ffr_{t-k}
+    \end{array}
+        \right]
+        +
+        \left[
+        \begin{array}{c}
+        \epsilon_{1,t} \\
+        \epsilon_{2,t} \\
+        \epsilon_{3,t}
+    \end{array}
+        \right]
+    
+\end{equation}\]</span></p><p>其中，<span class="math inline">\(A_0\)</span>是截距项的向量，<span class="math inline">\(A_1,\cdots, A_k\)</span>是<span class="math inline">\(3 \times
+3\)</span>系数矩阵。我们先来看看三个宏观经济变量的变化，如图11.6所示。从图中，我们可以看出：（1）20世纪70年代出现的“滞胀现象”——高通胀与高失业同时并存；（2）2007年美国次贷危机引发的全球金融危机使得美国发生通缩情况，而失业率也高企，此时，美联储开始大幅降息至零利率水平左右；（3）2020年的全球新冠危机又使得美国失业率急剧攀升，通胀率也短期内进入通缩，为了应对新冠疫情，美联储再次大幅降息至零利率水平附近，失业率开始下降，但通胀率又开始抬头。那么，利率政策的变化对宏观经济会产生什么效应呢？</p><figure data-latex-placement="tbph" id="fig:varts">
+<img src="../assets/images/ch14/var_ts.png" style="width:100.0%"/>
+<figcaption>宏观经济变量的变化</figcaption>
+</figure><p>下面，我们用VAR模型来估计一下货币政策的宏观经济效应。如上文所示，我们首先需要选择VAR模型的最后滞后期。我们可以使用stata中的varsoc命令来执行一些正式的滞后期选择标准。</p><pre><code>        * 选择最优滞后期
+        
+        varsoc in_rate ur ffr,maxlag(8)
+        </code></pre><figure data-latex-placement="tbph" id="fig:lagsc">
+<img src="../assets/images/ch14/lagsc.png" style="width:100.0%"/>
+<figcaption>VAR滞后期选择标准</figcaption>
+</figure><p><strong>varsoc</strong>命令的结果如图11.7所示，显示了许多滞后期选择检验。这些检验的含义可以<span class="math inline">\(help~
+varsoc\)</span>查看。上图中的极大似然比率(LR)和AIC检验都推荐滞后6期，因此，下面我们也选择滞后6期来运行向量自回归。</p><figure data-latex-placement="tbph" id="fig:var_irf">
+<img src="../assets/images/ch14/var_irf.png" style="width:100.0%"/>
+<figcaption>VAR的脉冲响应函数</figcaption>
+</figure><h3 id="svar">SVAR</h3></main></div></body></html>

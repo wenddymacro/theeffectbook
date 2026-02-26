@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html><head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<meta content="许文立" name="author"/>
+<meta content="2026-02-26" name="dcterms.date"/>
+<title>应用计量经济学讲稿</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</head><body><div class="book-topbar">
+<a class="pdf-btn" download="" href="../assets/pdf/AppliedEconometrics.pdf">下载 PDF 版本</a>
+<span class="hint">若在线阅读异常，可直接下载 PDF。</span>
+</div><div class="page-shell"><aside class="sidebar-nav"><nav aria-label="章节导航" class="chapter-nav"><h2>章节目录</h2><ul><li><a href="chapter-01.html">特别声明</a></li><li><a href="chapter-02.html">第1章：引言</a></li><li><a href="chapter-03.html">第2章：概率与统计基础</a></li><li><a href="chapter-04.html">第3章：一元线性回归</a></li><li><a class="is-current" href="chapter-05.html">第4章：多元线性回归</a></li><li><a href="chapter-06.html">第5章：识别的评价框架</a></li><li><a href="chapter-07.html">第6章：面板数据模型</a></li><li><a href="chapter-08.html">第7章：工具变量法</a></li><li><a href="chapter-09.html">第8章：双重差分(DID)</a></li><li><a href="chapter-10.html">第9章：断点回归设计（RDD）</a></li><li><a href="chapter-11.html">第10章：其他因果效应识别方法</a></li><li><a href="chapter-12.html">第11章：合成控制法</a></li><li><a href="chapter-13.html">第12章：事件研究</a></li><li><a href="chapter-14.html">第13章：时间序列的自回归模型</a></li><li><a href="chapter-15.html">第14章：动态随机一般均衡模型</a></li><li><a href="chapter-16.html">第15章：极简CGE：一个教学式模型</a></li><li><a href="chapter-17.html">第16章：如何讲好经济学故事：经济学论文的流行形式</a></li><li><a href="chapter-18.html">第17章：基本数学工具</a></li></ul></nav></aside><main class="chapter-main"><p class="back-home"><a href="../index.html">← 返回封面</a></p><h1 id="多元线性回归">多元线性回归</h1><p>第三讲的回归结果显示：学生老师比越小，平均分数越高。但是，肯定有人怀疑这一结论，因为小班的学生可能还有其他的因素使得其平均分数更高。</p><p>在第三讲中，这些被遗漏的因素全部“丢进”了误差项<span class="math inline">\(u_i\)</span>中。但是这会使得OLS估计量产生偏误，我们在下面的内容中将详细阐述。那么，怎么解决“遗漏变量偏误”呢？<strong>多元回归</strong>就是消除遗漏变量偏误的一种方法。</p><p>多元回归的idea很直观：如果那些遗漏变量的数据可用，那么，我们就能将这些变量纳入回归方程中作为回归因子，并且在保持其它变量不变的情况下，估计出一个回归因子的效应。</p><h2 id="遗漏变量偏误">遗漏变量偏误</h2><p>第三讲用小班教学作为例子。在这个例子中，班级规模（学生-
+老师比）越小，平均成绩越高。但是，仅仅考虑学生-老师比这一个因素不够，还忽略了许多重要的潜在决定因素对测试成绩的影响。这些潜在影响因素包括：学校特征（教师质量、硬件设备等等）、学生特征（家庭背景、语言差异等等）。下面，我们以语言差异为例。</p><p>大家都知道，中国方言甚多，甚至同一个城市里不同区域的方言也不相同。在湖北省高考语文试题中，经常考字的读音。湖北人普通话不标准，因为前鼻音“l”
+和后鼻音“n”不分，平舌“si”和翘舌“shi"不分。还有很多的地方的人“飞”和“灰”不分。因此，估计很多学生都怕读音题，尤其是是南方人。</p><p>那么，如果一个班里南方人比例多，而另一个班级里北方人比例高，如果考读音题，估计南方人多的班级平均分会低于北方人多的班级。如果我们忽略这种语言差异，仅仅用学生-老师比来回归，预期班级规模对测试成绩的效应会有偏。因为南方学生在读音题上的得分可能低于北方学生。如果大班中有许多南方人，那么，学生-老师比的OLS回归系数可能会高估对测试分数的效应。</p><h3 id="遗漏变量偏误的定义">遗漏变量偏误的定义</h3><p>如果一个回归元与模型中遗漏的变量有关，且这个遗漏变量还是因变量的决定因素，那么，OLS
+估计量会产生<strong>遗漏变量偏误</strong>。</p><p>遗漏变量偏误产生必须同时满足两个条件：</p><p>1、X与遗漏变量相关；</p><p>2、遗漏变量是因变量Y的一个决定因素。</p><p><strong>遗漏变量偏误与第一个LS假设。</strong>回顾一下第三讲中有关OLS的三个假设，其中，第一个是<span class="math inline">\(E(u_i|X_i)=0\)</span>。遗漏变量偏误就意味着这个假设不成立。</p><p>在一元回归中，<span class="math inline">\(u_i\)</span>包含除了<span class="math inline">\(X_i\)</span>以外所有决定Y的因素。如果这些遗漏的因素中有一个与<span class="math inline">\(X_i\)</span>，那么，误差项<span class="math inline">\(u_i\)</span>就与<span class="math inline">\(X_i\)</span>相关。因此，<span class="math inline">\(E(u_i|X_i)\neq0\)</span>。这个假设不成立，后果很严重：OLS估计量有偏。即使在大样本下，偏误也不会消除，而且OLS估计量不是一致估计量。</p><p>因为，遗漏变量与<span class="math inline">\(X_i\)</span>相关，我们定义<span class="math inline">\(corr(X_i,u_i)=\rho_{Xu}\)</span>。 假设LS
+的第二和第三个假设仍然成立。那么，OLS估计量就有下列极限： <span class="math display">\[\begin{equation}
+        \hat{\beta}_1\xrightarrow{p}\beta{_1}+\rho_{Xu}\frac{\sigma{_u}}{\sigma{_X}}
+    
+\end{equation}\]</span></p><p>也就是说，随着样本规模的增大，<span class="math inline">\(\hat{\beta}_1\)</span>以越来越高的概率趋近于<span class="math inline">\(\
+beta{_1}+\rho_{Xu}\frac{\sigma{_u}}{\sigma{_X}}\)</span>。</p><p><strong>note</strong>：</p><p>1、无论样本规模大小，遗漏变量偏误问题都要引起注意。从公式（1）中可以看出，<span class="math inline">\(\hat{\beta}_1\)</span>并不收敛到真值<span class="math inline">\(\beta_1\)</span>。且偏误的大小为<span class="math inline">\(\rho_{Xu}\frac{\sigma{_u}}{\sigma{_X}}\)</span>。</p><p>2、偏误的大小取决于误差项与X 的相关系数<span class="math inline">\(\rho_{Xu}\)</span>。<span class="math inline">\(|\rho_{Xu}|\)</span>越大，偏误越大。</p><p>3、偏误的方向（也就是，系数高估还是低估）取决于误差项与X是正相关还是负相关。如果<span class="math inline">\(\rho_{Xu}&lt;0\)</span>，OLS估计量就是低估，反之亦然。</p><p><strong>例子：听莫扎特可以提高智力？！</strong></p><p>在孩子教育问题方面，流传着这样的一个故事：让孩子每天听听莫扎特的音乐，可以提高孩子的智力。其实，这是Rauscher
+et al.（1993）在Nature上发表的研究成果。他们建议，听10-15
+分钟的莫扎特会暂时性提高IQ8-9个点。</p><p>真的存在“莫扎特效应”吗？如果存在，提高8-9点IQ是高还是低了？现在我们学了一点计量了，我们用计量经济学的语言，这个效应估计可能存在遗漏变量偏误。</p><h2 id="多元回归模型">多元回归模型</h2><p>既然遗漏变量偏误是由于某些决定Y，而又与X相关的变量没有包含在回归方程中，那么，只要这些变量数据可用，我们只要把它们纳入回归方程中就可以消除遗漏变量偏误。这就是<strong>多元回归模型</strong>。多元回归模型可以在保持<span class="math inline">\(X_2\)</span>不变的情况下，估计出<span class="math inline">\(X_1\)</span>对Y的效应。</p><p><strong>总体回归线</strong></p><p>假设只有两个自变量<span class="math inline">\(X_{1i}\)</span>和<span class="math inline">\(X_{2i}\)</span>。在线性多元回归模型中，自变量和因变量之间的关系由下式给出
+<span class="math display">\[\begin{equation}
+        E(Y_i|X_{1i}=x_1,X_{2i}=x_2)=\beta_0+\beta_1x_1+\beta_2x_2
+    
+\end{equation}\]</span></p><p>公式（2）称为<strong>总体回归线，或者总体回归函数</strong>。多元回归模型中一个或多个自变量有时候也称为<strong>控制变量</strong>。公式（2）中的系数<span class="math inline">\(\beta_1\)</span>含义与一元回归中有些不同。在多元回归中，这个系数是保持X2为常数或者控制X2
+时，X1的单位变化引起Y的变化。这个系数也称为<strong>局部效应</strong>。</p><p><strong>总体回归方程</strong></p><p>正如一元回归，多元回归线也不能精确表示自变量与Y之间的关系，因为还有许多影响Y的因素并没有包含在多元回归线中。因此，公式（2）也需要包含误差项来代表其它因素。即
+<span class="math display">\[\begin{equation}
+        Y_i=\beta_0+\beta_1X_1+\beta_2X_2+u_i,~~i=1,\cdots,n
+    
+\end{equation}\]</span></p><p>我们可以把<span class="math inline">\(\beta_0\)</span>理解成是值为1的自变量的系数。因为该自变量的值恒为1，因此称为常自变量。类似，<span class="math inline">\(\beta_0\)</span>也被称为<strong>常数项</strong>。</p><p>在实践中，多元回归模型通常包含两个以上的自变量，形式如下 <span class="math display">\[\begin{equation}
+        Y_i=\beta_0+\beta_1X_1+\beta_2X_2+\cdots+\beta_kX_k+u_i,~~i=1,\cdots,n
+    
+\end{equation}\]</span></p><h3 id="多元回归中的ols估计量">多元回归中的OLS估计量</h3><p>回忆一下，一元回归的OLS估计量：选择系数来最小化预测误差平方和，即选择<span class="math inline">\(\hat{\beta}_0,\hat{\beta}_1\)</span> 来最小化<span class="math inline">\(\sum_{i=1}^{n}{(Y_i-\hat{\beta}_0-\hat{\beta}_1X_i)^2}\)</span>。<span class="math inline">\(\hat{\beta}_0,\hat{\beta}_1\)</span>
+就是OLS估计量。</p><p>这一思想也可以沿用至多元回归的系数估计。即 <span class="math display">\[\begin{equation}
+        \sum_{i=1}^{n}{(Y_i-\hat{\beta}_0-\hat{\beta}_1X_i-\cdots-\hat{\beta}_kX_k)^2}
+    
+\end{equation}\]</span></p><p>其中，<span class="math inline">\(\hat{\beta}_0,\hat{\beta}_1,\cdots,\hat{\beta}_k\)</span>
+是OLS估计量。而OLS残差用<span class="math inline">\(\hat{u}_i=Y_i-\hat{Y}_i\)</span>表示。</p><p>上面的OLS估计量公式有点麻烦。但是，幸运地是这些计算公式都已经编写进了统计软件中，例如Stata，我们把数据输入后，软件就可以直接给出结果。</p><p><strong>应用</strong></p><p>第三讲中，学生-老师比对测试成绩的效应，用的美帝加利福利亚州420个观测样本估计的回归模型为
+<span class="math display">\[\begin{equation}
+        \hat{Y}=698.9-2.28\times{X}
+    
+\end{equation}\]</span></p><p>但是，通过上面内容的讲解，我们担心这个回归模型对小班教学效应的估计不准确。因为它存在遗漏变量偏误问题。因为美帝是一个移民国家，学校里有许多学生母语是非英语，因此，其在测试分数上表现稍微差一些。我们正好也有加利福利亚州学生母语为非英语人数的数据。那么，我们就可以在上述一元回归模型中引入非母语学生变量，从而消除遗漏变量偏误问题。得到的多元回归方程为
+<span class="math display">\[\begin{equation}
+        \hat{Y}=686.0-1.10\times{X_1}-0.65\times{X_2}
+    
+\end{equation}\]</span></p><p>其中，<span class="math inline">\(X_1\)</span>表示学生-老师比（str），<span class="math inline">\(X_2\)</span>表示非英语母语学生（elpct）。</p><p>stata结果为</p><figure data-latex-placement="htbp" id="fig:digit">
+<img src="../assets/images/ch05/mreg.jpg" style="width:70.0%"/>
+<figcaption>多元回归结果</figcaption>
+</figure><p>将一元回归方程（6）和多元回归方程（7）中，学生-老师比对测试分数的效应的OLS估计结果进行对比。多元回归中，<span class="math inline">\(\beta_1\)</span>的OLS估计量为-1.10，这几乎是一元回归估计量的一半。也就是说，多元回归中班级规模对测试分数的效应是一元回归中估计地效应的一半。这是因为在多元回归中，-1.10
+表示保持<span class="math inline">\(X_2\)</span>不变时，班级规模的效应，而-2.28则表示班级规模与非英语母语学生都在变化时的效应。</p><p>这种对比也可以看出，一元回归存在遗漏变量偏误。估计出的班级规模效应偏大。</p><h3 id="拟合度-1">拟合度</h3><p>与一元回归类似，多元回归也有三个常用的统计量来检验回归方程对数据的拟合程度，它们分别是：<span class="math inline">\(SER\)</span>、<span class="math inline">\(R^2\)</span>和调整<span class="math inline">\(R^2\)</span> （<span class="math inline">\(\overline{R}^2\)</span>）。</p><p><strong>SER</strong></p><p>SER估计误差项<span class="math inline">\(u_i\)</span>的标准差。在多元回归中，SER为 <span class="math display">\[\begin{equation}
+        SER=s_{\hat{u}}=\sqrt{s_{\hat{u}}^2}~where~s_{\hat{u}}^2=\frac{1}{n-k-1}\sum_{i=1}^{n}{\hat{u}_i^2}=\frac{SSR}{n-k-1}
+    
+\end{equation}\]</span></p><p>上式与第三讲中的SER公式的差异在分母是<span class="math inline">\(n-k-1\)</span>，而不是<span class="math inline">\(n-2\)</span>。第三讲中，除数<span class="math inline">\(n-2\)</span>是为了调整由估计两个系数而引起的向下偏误。而此处<span class="math inline">\(n-k-1\)</span>则是为了调整估计<span class="math inline">\(k+1\)</span>
+个系数（k个斜率和一个截距）引起的向下偏误。<span class="math inline">\(n-k-1\)</span>
+成为<strong>自由度</strong>。当n很大时，自由度调整可以忽略。</p><p><strong><span class="math inline">\(R^2\)</span></strong></p><p>回忆一下，第三讲中<span class="math inline">\(R^2\)</span>定义为回归因子所能解释的<span class="math inline">\(Y_i\)</span>的样本方差比例，或者1减回归因子不能解释的样本方差比例。即
+<span class="math display">\[\begin{equation}
+        R^2=\frac{ESS}{TSS}=1-\frac{SSR}{TSS}
+    
+\end{equation}\]</span></p><p>其中，回归平方和<span class="math inline">\(ESS=\sum_{i=1}^n{(\hat{Y}_i-\overline{Y})^2}\)</span>，总平方和<span class="math inline">\(TSS=\sum_{i=1}^n{(Y_i-\overline{Y})^2}\)</span>。</p><p>多元回归中的<span class="math inline">\(R^2\)</span>定义同上。但是，特别需要注意的是，<strong>除非增加的回归量的系数为0，否则随着回归量的增加，<span class="math inline">\(R^2\)</span>逐渐增大。</strong>根据OLS，选择系数值来最小化残差平方和SSR。（1）如果增加的回归量的系数为0，那么，SSR
+不会随着这个增加的回归量而变化。（2）如果增加的回归量系数不为0，那么，增加该回归量之后的SSR会变小，从公式（9）可知，<span class="math inline">\(R^2\)</span>变大。</p><p>那么，增加回归量，<span class="math inline">\(R^2\)</span>变大，是否意味着增加回归量就提高了模型的拟合程度呢？答案是否定的。因此，就需要纠正多元回归中的<span class="math inline">\(R^2\)</span>，为此，提出了调整的<span class="math inline">\(R^2\)</span>，即<span class="math inline">\(\overline{R}^2\)</span> <span class="math display">\[\begin{equation}
+        \overline{R}^2=1-\frac{n-1}{n-k-1}\frac{SSR}{TSS}=1-\frac{s_{\hat{u}}^2}{s_Y^2}
+    
+\end{equation}\]</span></p><p>公式（10）与（9）之间的差别就是残差平方和与总平方和之比前面成了一个因子（<span class="math inline">\(\frac{n-1}{n-k-1}\)</span>）。关于<span class="math inline">\(\overline{R}^2\)</span>有三点需要注意：</p><p>第一，<span class="math inline">\(\frac{n-1}{n-k-1}\)</span>总是大于1，因此，<span class="math inline">\(\overline{R}^2&lt;R^2\)</span>；</p><p>第二，增加一个回归量对<span class="math inline">\(\overline{R}^2\)</span>有正负两个方面的影响，一方面，SSR下降，<span class="math inline">\(\overline{R}^2\)</span>上升；另一方面，因子<span class="math inline">\(\frac{n-1}{n-k-1}\)</span>变大，<span class="math inline">\(\overline{R}^2\)</span> 变小。因此，<span class="math inline">\(\overline{R}^2\)</span>变大变小取决于这两个效应谁占主导地位；</p><p>第三，<span class="math inline">\(\overline{R}^2\)</span>可以为负数。当增加回归量，SSR下降的程度不足以抵补<span class="math inline">\(\frac{n-1}{n-k-1}\)</span>的下降，那么<span class="math inline">\(\overline{R}^2\)</span>就可能为负。</p><p><strong>示例：</strong>从上文的图1中可以看出，<span class="math inline">\(R^2=0.4264\)</span>，而<span class="math inline">\(\overline{R}^2=0.4237\)</span>，<span class="math inline">\(SER=14.464\)</span>。将这些结果与第三讲中的一元回归结果进行对比，<span class="math inline">\(R^2\)</span>从0.051上升到0.4264，也就是说只有学生-老师比这一个自变量时，自变量只能解释测试分数方差的5.1%，而增加非英语母语学生这个自变量时，两个自变量可以解释测试分数方差的42.64%。从这个意义上看，增加一个自变量确实提高了回归模型的拟合程度。因为样本量<span class="math inline">\(n=420\)</span>，回归量<span class="math inline">\(k=2\)</span>，因此，<span class="math inline">\(R^2\)</span> 与<span class="math inline">\(\overline{R}^2\)</span> 之间的差异就非常小。</p><p>此外，SER也从一元回归的18.6上升到多元回归的14.5，这也说明拟合的更好。</p><p><strong>提醒：</strong>虽然<span class="math inline">\(\overline{R}^2\)</span>与<span class="math inline">\(R^2\)</span>很有用，但是太依赖于<span class="math inline">\(\overline{R}^2\)</span>就会掉进陷阱。在实际应用中，“最大化<span class="math inline">\(\overline{R}^2\)</span>”
+几乎不能回答任何有意义的计量或统计问题。相反，是否要增加一个变量应该基于增加这个变量可以更好的估计出我们感兴趣的因果效应。</p><h3 id="多元回归中的ols假设">多元回归中的OLS假设</h3><p>与一元回归类似，多元回归中OLS也有一些假设： <span class="math display">\[\begin{equation}
+        Y_i=\beta_0+\beta_1X_1+\beta_2X_2+\cdots+\beta_kX_k+u_i,~~i=1,\cdots,n
+    
+\end{equation}\]</span></p><p>其中，</p><p>1、给定<span class="math inline">\(X_{1i},X_{2i},\cdots,X_{ki}\)</span>的条件下，<span class="math inline">\(u_i\)</span>的条件均值为0，即<span class="math inline">\(E(u_i|X_{1i},X_{2i},\cdots,X_{ki})=0\)</span>；</p><p>2、<span class="math inline">\((X_{1i},X_{2i},\cdots,X_{ki},Y_i)\)</span>独立同分布（i.i.d.）；</p><p>3、不可能出现较大奇异值：<span class="math inline">\(X_{1i},X_{2i},\cdots,X_{ki},Y_i\)</span>有非零有限的四阶矩；</p><p>4、不存在完全多重共线。</p><h2 id="假设检验与置信区间">假设检验与置信区间</h2><p>多元回归为消除遗漏变量偏误问题提供了一种方法。但多元回归中的OLS估计量也存在抽样不确定性。与一元回归不同，多元回归的假设可能包含两个或多个回归系数。检验这种“联合”假设的统计量，称为<strong>F统计量</strong>。</p><h3 id="单系数假设检验与置信区间">单系数假设检验与置信区间</h3><p>回忆一下，一元回归系数的方差是由第三讲公式（20）给出的。在LS假设下，大数法则意味着样本均值会收敛到总体均值，因此，<span class="math inline">\(\frac{\hat{\sigma}_{\hat{\beta}_1}^2}{\sigma_{\hat{\beta}_1}^2}\xrightarrow{p}1\)</span>。<span class="math inline">\(\sigma_{\hat{\beta}_1}^2\)</span>
+的平方根就是<span class="math inline">\(\hat{\beta}_1\)</span>的标准误，<span class="math inline">\(SE(\hat{\beta}_1)\)</span>。</p><p>这个计算标准误的方法也可以推广至多元回归。</p><h4 id="单系数假设检验">单系数假设检验</h4><p>一般来讲，我们想要检验多元回归第j个自变量的系数<span class="math inline">\(\beta_j\)</span>等于某一确定值<span class="math inline">\(\beta_{j,0}\)</span>。这个特定的值要么来源于经济理论，要么来源于实际应用中的决策值。如果备择假设是双边假设，那么，原假设与备择假设为
+<span class="math display">\[\begin{equation}
+        H_0:\beta_j=\beta_{j,0}~~vs.~~H_1:\beta_j\neq\beta_{j,0}
+    
+\end{equation}\]</span></p><p>例如，在小班教学的例子中，原假设就是<span class="math inline">\(\beta_1=0\)</span>。我们的任务就是要用样本数据来检验原假设和备择假设。</p><p>与一元回归的假设检验步骤类似，多元回归假设检验步骤如下：</p><p>第一步，计算<span class="math inline">\(\hat{\beta}_j\)</span>的标准误，<span class="math inline">\(SE(\hat{\beta}_j)\)</span>；</p><p>第二步，计算t统计量 <span class="math display">\[\begin{equation}
+        t=\frac{\hat{\beta}_j-\beta_{j,0}}{SE(\hat{\beta}_j)}
+    
+\end{equation}\]</span></p><p>第三步，计算p值 <span class="math display">\[\begin{equation}
+        p=2\Phi(-|t^{act}|)
+    
+\end{equation}\]</span> 其中，<span class="math inline">\(t^{act}\)</span>是计算出来的实际t统计量。如果p值小于0.05或者<span class="math inline">\(|t^{act}|&gt;1.96\)</span>，那么就在5%的显著性水平下拒绝原假设。</p><p>注：我们从上面的stata结果可以看出，标准误、t统计和p值都是由软件自动输出的。</p><figure data-latex-placement="htbp" id="fig:digit">
+<img src="../assets/images/ch05/SE.jpg" style="width:70.0%"/>
+<figcaption>标准误、t统计量和p值</figcaption>
+</figure><h4 id="置信区间-2">置信区间</h4><p>多元回归的置信区间与一元回归相同。</p><p>例如，系数<span class="math inline">\(\beta_j\)</span>的95%的双边置信区间以95%的概率包含<span class="math inline">\(\beta_j\)</span>的真实值。等价地，<span class="math inline">\(\beta_j\)</span>的一系列值不能被5%的双边假设检验所拒绝。当样本规模很大时，95%
+的置信区间为 <span class="math display">\[\begin{equation}
+        95\%~conf.
+interval=[\hat{\beta}_j-1.96SE(\hat{\beta}_j),\hat{\beta}_j+1.96SE(\hat{\beta}_j)]
+    
+\end{equation}\]</span>
+注：如果是90%的置信区间，就用1.64代替1.96；如果是99%的置信区间，就用2.58取代1.96。</p><p><strong>提醒：</strong>无论是假设检验的方法和置信区间的方法都依赖于大样本正态近似于OLS估计量的分布。因此，要时刻记住这些量化抽样不确定性的方法仅仅在大样本下才起作用。</p><p><strong>示例1：图2</strong></p><p>由图2的多元回归结果可知，学生-老师比的系数为-1.10，SER为0.38，而原假设为<span class="math inline">\(\beta_1=0\)</span>,因此，t值为<span class="math inline">\(\frac{-1.10-0}{0.38}=-2.89\)</span>，这一结果与图2中显示的一致。对应的p值为0.4%，因为p值小于5%，所以在5%的显著性水平下拒绝原假设（这个值甚至小于1%的显著性水平）。</p><p>由图2还可知道95%的置信区间为<span class="math inline">\([-1.85,-0.35]\)</span>。</p><p><strong>示例2：加入其它控制变量</strong></p><p>假设还有其它因素影响测试成绩，例如生均教师支出（expn）。那么，将生教师均支出加入回归方程后的结果为</p><figure data-latex-placement="htbp" id="fig:digit">
+<img src="../assets/images/ch05/expn.jpg" style="width:70.0%"/>
+<figcaption>加入生均支出的回归结果</figcaption>
+</figure><p>从图3中，我们看到了十分有趣的结果：加入expn之后，str（学生-老师比）的效应更小了，仅为-0.286，而且t统计量仅为-0.6，对应的p值为0.551。也就是说，总体回归中这个系数为0的假设不能在10%的显著性水平下被拒绝。<strong>其经济含义就是，保持生均教师支出和非英语母语学生不变的情况下，没有证据显示，小班教学会提高测试成绩。</strong></p><p>从这个结果还可以有另一种理解或推断：教育管理部门有效地批准了教育资金。假设一种相反的结果，加入生均教师支出后，str的系数很大，且为负。那么，教育管理部门只需要减少其它的教育支出（例如，课本、教学设备等等），而将其用于雇佣更多的教师。这样既可以保持教育支出不变，也而缩减班级规模，从而使得测试成绩提高。但是上面的回归结果却是str的系数很小，且统计不显著，这也就意味着将其他教育支出转移至教师支出这种资金配置不会对测试成绩的提高产生效应。从而推断出教育管理部门有效地配置了教育资金。</p><p><strong>小贴士：</strong>从图3中，str的标准误从图2中的0.38变为图3中的0.48，这说明str和expn可能存在多重共线性。而多重共线性会导致OLS估计不精确。</p><h3 id="联合假设检验">联合假设检验</h3><p>如果原假设为学生-老师比和生均支出的系数同时为0，该如何检验呢？</p><p>我们控制非英语母语学生变量，联合假设为 <span class="math display">\[\begin{equation}
+        H_0:\beta_1=0,\beta_2=0~~vs.~~H_1:\beta_1\neq0,\beta_2\neq0
+    
+\end{equation}\]</span></p><p><strong>联合假设</strong>就是对两个或多个回归系数施加限制。只要原假设中的任何一个系数等式不成立，那么，联合原假设就为假。</p><p>那么，我们为什么不能一次检验一个系数呢？</p><p>如果我们对上述联合假设检验感兴趣，并分别用<span class="math inline">\(t_1\)</span>和<span class="math inline">\(t_2\)</span>来检验第一个系数为0和第二个系数为0。那么，只要<span class="math inline">\(t_1\)</span>和<span class="math inline">\(t_2\)</span>中有一个大于1.96就应该拒绝原假设？</p><p>由于这个问题中涉及两个随机变量<span class="math inline">\(t_1\)</span>和<span class="math inline">\(t_2\)</span>，因此，需要刻画它们的联合抽样分布。在大样本下，<span class="math inline">\(\beta_1\)</span>和<span class="math inline">\(\beta_2\)</span>有联合正态分布，因此，<span class="math inline">\(t_1\)</span> 和<span class="math inline">\(t_2\)</span>有一个双变量正态分布。假设两个t统计量不相关且独立。那么，不能拒绝原假设当且仅当<span class="math inline">\(|t_1|\geq1.96,|t_2|\geq1.96\)</span>。<span class="math inline">\(Pr(|t_1|\geq1.96,|t_2|\geq1.96)=0.95^2=0.9025\)</span>。
+因此，拒绝原假设的概率为9.57%(1-0.9025)。</p><p>如果这两个t统计量相关，那么，这种情形更加复杂。但是“一次检验一个”的方法不会得到一个合意的显著性水平。而另一种法就是基于F统计量的检验。</p><h4 id="f统计量">F统计量</h4><p>F统计量用于检验回归分析中的联合假设。Stata软件可以直接输出F统计量。当联合原假设为两个系数为0时，F统计量的公式为
+<span class="math display">\[\begin{equation}
+        F=\frac{1}{2}(\frac{t_1^2+t_2^2-2\hat{\rho}_{t_1,t_2}t_1t_2}{1-\hat{\rho}_{t_1,t_2}^2})
+    
+\end{equation}\]</span> 其中，<span class="math inline">\(\hat{\rho}_{t_1,t_2}\)</span>是两个t统计量相关系数的估计值。</p><p>下面来看看q个系数的联合假设检验。大样本下，F统计量有<span class="math inline">\(F_q^\infty\)</span>分布。因此，F统计量的临界值就能通过<span class="math inline">\(F_{q,\infty}\)</span>分布表查出来，得到一个合适的显著性水平。F
+统计量计算的p值为 <span class="math display">\[\begin{equation}
+        p=Pr[F_{q,\infty}&gt;F^{act}]
+    
+\end{equation}\]</span></p><p>上式计算出来的p值与F分布临界值对比。在给大家上课的时候，虽然把这些步骤都告诉大家，但是stata等软件直接帮我们略去了这些细节，直接给出结果。</p><p>F统计量检验所有系数为0的联合假设。即原假设和备择假设为 <span class="math display">\[\begin{equation}
+        H_0:\beta_1=0,\beta_2=0,\cdots,\beta_k=0~~vs.~~H_1:\beta_j\neq0,j=1,2,\cdots,k
+    
+\end{equation}\]</span> 其中，备择假设说明至少有一个j不等于0。</p><p>在原假设下，没有回归量能解释Y的方差。当<span class="math inline">\(q=1\)</span>时，F统计量检验单一系数的限制。联合假设就退化成一元回归系数的假设，F统计量就是t统计量的平方。</p><p><strong>示例</strong></p><p>检验学生-老师比和生均支出的系数为0。计算F统计量为5.43。如下图所示</p><figure data-latex-placement="htbp" id="fig:digit">
+<img src="../assets/images/ch05/F2.jpg" style="width:70.0%"/>
+<figcaption>F统计量</figcaption>
+</figure><p>在原假设下，大样本性质使得F统计量有<span class="math inline">\(F_{2,\infty}\)</span>分布。查F分布临界值表，<span class="math inline">\(F_{2,\infty}\)</span>分,5%的临界值为3.00，1%的临界值为4.61。而计算得到的F统计量为5.43，大于1%显著性水平下的临界值，因此，在1%的显著性水平下拒绝原假设。</p><h3 id="多元回归模型设定">多元回归模型设定</h3><p>多元回归中有两个或多个自变量，那么，如何决定哪些变量要放进多元回归中呢？目前，还没有“万能灵药”来应对所有情形。但是也不用失望，因为有许多指导性建议可用。选择一个变量作为自变量，应该从可能的遗漏变量偏误着手。这有赖于你们对经验问题的专业知识，由此获得一个无偏的因果效应。而不是仅仅完全依赖于统计拟合程度，例如<span class="math inline">\(R^2\)</span>和<span class="math inline">\(\overline{R}^2\)</span>。</p><p>回忆一下，本讲第一节提到的遗漏变量偏误，必须满足两个条件：（1）至少有一个回归量与遗漏变量相关；（2）遗漏变量必须是因变量Y的决定因素。</p><p>这也就意味着给定<span class="math inline">\(X_1i,X_2i,\cdots,X_ki\)</span>，<span class="math inline">\(u_i\)</span>的条件期望为非零，这就会打破LS第一个假设。因此，即使在大样本下，遗漏变量偏误还是会存在。即是说，遗漏变量偏误使得OLS估计量非一致。</p><p>上面的例子隐含着核心解释变量（我们希望估计的因果效应）和控制变量。</p><p><strong>控制变量</strong>并不是我们感兴趣的目标；它们是包含在多元回归中，保持为不变的因素；如果忽略它们就会导致感兴趣变量（核心解释变量）的因果效应遭遇遗漏变量偏误。</p><p>在LS第一假设上，我们来区别对待核心解释变量和控制变量。核心解释变量的OLS估计量是无偏的，但是控制变量的OLS估计量一般来讲是有偏的，因此并没有因果含义。</p><p><strong>示例</strong></p><p>考虑由于遗漏外部学习机会而引起的潜在遗漏变量偏误。外部学习机会非常抽象和广泛，因此，很难测量。但是这些机会与学生的经济背景有关，而经济背景可以测量。因此，经济背景就可以加入多元回归中，进而控制收入相关的遗漏因素。例如，我们在str和pctel之外，再加入受到免费午餐的学生比例（lchpct）。那么回归结果为</p><p><strong>理论和实践中的模型设定</strong>
+从理论来讲，如果遗漏变量数据可用，解决遗漏变量偏误，只需要在回归模型中加入遗漏变量即可。然而，在实践中，决定是否加入一个变量非常困难，并要三思而行。</p><p>从实践来看，应对遗漏变量偏误的方法：</p><p>基础解释变量集应用依靠专业判断、经济理论以及对数据的了解，并进行综合决策。包含基础解释变量的集合有时也称为<strong>基准模型</strong>。</p><p>第一步，基准模型应该包含主要的核心解释变量和控制变量，这些变量是根据专业判断和经济理论得到的。</p><p>第二步，有经济理论得到的变量经常没有可用的数据，那么，就需要提出许多备择模型设定，即一些备择的回归因子。</p><p><strong>如果在备择模型中，核心解释变量的数值与基准模型相似，这就说明基准模型的估计结果可信。另一方面，如果核心解释变量的估计结果在备择模型中变化较大，那么，这说明基准模型存在遗漏变量偏误。</strong>我们将在第五讲中详细阐述遗漏变量偏误及其解决办法。</p><p>实践中，<span class="math inline">\(R^2\)</span>和<span class="math inline">\(\overline{R}^2\)</span>能告诉我们什么？不能告诉我们什么呢？</p><p><span class="math inline">\(R^2\)</span>和<span class="math inline">\(\overline{R}^2\)</span><strong>能告诉我们</strong>回归因子解释因变量的方差的程度。如果<span class="math inline">\(R^2\)</span>或<span class="math inline">\(\overline{R}^2\)</span>接近于1，说明回归因子能作出对因变量的较好预测，才能够这个意义上来讲，OLS残差方法较小。如果<span class="math inline">\(R^2\)</span>或<span class="math inline">\(\overline{R}^2\)</span>接近于0，情况相反。</p><p><span class="math inline">\(R^2\)</span>和<span class="math inline">\(\overline{R}^2\)</span><strong>不能告诉我们</strong></p><p>（1）一个解释变量是否统计显著；</p><p>（2）回归因子是驱动因变量变动的真实原因；</p><p>（3）存在遗漏变量偏误；</p><p>（4）我们已经选择了最适合的解释变量集合。</p><h2 id="多元回归stata操作示例">多元回归Stata操作示例</h2><p>这一节，我将利用小班教学的数据作为例子，来展示多元回归的stata操作及其结果分析与讨论。主要目的是为了说明利用多元回归如何消除遗漏变量偏误。</p><p><strong>第一步，基准模型和备择模型的设定</strong></p><p>从前面的讲稿内容可以看出，我们关心的班级规模（学生-老师比）对测试成绩的效应，且控制了学生的特征（例如，经济背景、非英语母语等）。除此之外，还有许多影响测试分数的潜在因素，且它们与学生-老师比相关。如果遗漏这些因素就会导致遗漏变量偏误。如果控制变量使得条件均值独立性假设成立，那么，学生-老师比的系数就是保持控制变量不变时班级规模对测试分数的效应。</p><p>我们考虑三个学生特征：非英语母语学生比例（elpct）、接受免费午餐的学生比例（mealpct）、有资格接受家庭收入援助的学生比例（calwpct）。后面两个变量都可以刻画学生的经济背景。经济理论和转专业判断并不能告诉我们这两个变量中哪一个作为控制变量代表学生经济特征更合适。因此，我们把免费午餐学生比例作为基准回归模型，而把接受家庭收入援助的学生比例作为备择回归模型。</p><p>下面，我们分别作出测试分数（testscr）与非英语母语学生比例（elpct）、接受免费午餐的学生比例（mealpct）、有资格接受家庭收入援助的学生比例（calwpct）的散点图。</p><p>我们在stata命令栏中分别输入</p><p><strong>scatter testscr elpct</strong></p><p><strong>scatter testscr mealpct</strong></p><p><strong>scatter testscr calwpct</strong></p><p>可以得到下列三幅三点图</p><figure data-latex-placement="htbp" id="fig:digit">
+<img src="../assets/images/ch05/elr.png" style="width:70.0%"/>
+<figcaption>测试分数与非英语母语学生比例</figcaption>
+</figure><figure data-latex-placement="htbp" id="fig:digit">
+<img src="../assets/images/ch05/lunch.png" style="width:70.0%"/>
+<figcaption>测试分数与接受免费午餐的学生比例</figcaption>
+</figure><figure data-latex-placement="htbp" id="fig:digit">
+<img src="../assets/images/ch05/income.png" style="width:70.0%"/>
+<figcaption>测试分数与接受收入援助的学生比例</figcaption>
+</figure><p>还可以得到这些变量之间的相关系数。在stata命令栏输入</p><p><strong>cor testscr str elpct mealpct calwpct</strong></p><p>得到下列结果</p><figure data-latex-placement="htbp" id="fig:digit">
+<img src="../assets/images/ch05/corr.jpg" style="width:70.0%"/>
+<figcaption>相关系数</figcaption>
+</figure><p>由上述结果可知，接受免费午餐的学生比例（mealpct）、有资格接受家庭收入援助的学生比例（calwpct）之间的相关系数为0.739。而测试分数与三个控制变量之间的均负相关，相关系数分别为-0.644、-0.869和-0.627。</p><p><strong>小贴士</strong></p><p>我们使用的三个控制变量都是学生比例，单位是百分号，那么，这些变量的范围肯定在0到100。同时，我们也可以用分数来表示这些变量，而不是百分数。那么，我们如何选择变量数值的量级或单位呢？</p><p>这个问题的答案是选择一个变量的合适量级使得回归结果更容易读取和理解。例如，测试分数对学生-老师比和非英语母语学生比例的回归结果显示，非英语母语学生比例的回归系数为-0.650。如果非英语学生比例的量级换成<span class="math inline">\(elpct/100\)</span>。回归模型的<span class="math inline">\(R^2\)</span>和SER都不会变化，但是它的系数变成了-65.0。那么，在elpct的设定中，str保持不变，elpct的系数表示分数变化的百分点（分），而在<span class="math inline">\(elpct/100\)</span>的设定中，str保持不变，<span class="math inline">\(elpct/100\)</span>的系数表示100百分点的变化。尽管这两种模型设定在数学形式上是等价的，但是其OLS系数的含义还是前一种设定比较自然。</p><p><strong>第二步，回归结果的呈现</strong></p><p>基准回归模型和备择回归模型设定好了，stata会直接给出回归结果。那么，现在的问题来了，在这么多回归结果中，如何最好的呈现出回归结果呢？回忆一下，前面的内容已经以回归方程的形式呈现出了回归结果。但是这种形式在论文中很少见，论文中多数是以表格的形式呈现出回归结果。</p><div class="center">
+<div class="center">
+<div id="tab:digit">
+<table>
+<caption>多元回归结果</caption>
+<thead>
+<tr>
+<th style="text-align: left;">自变量</th>
+<th style="text-align: center;">(1)</th>
+<th style="text-align: center;">(2)</th>
+<th style="text-align: center;">(3)</th>
+<th style="text-align: center;">(4)</th>
+<th style="text-align: center;">(5)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><span>1-6</span> 学生-老师比<span class="math inline">\(X_1\)</span></td>
+<td style="text-align: center;">-2.280***</td>
+<td style="text-align: center;">-1.101**</td>
+<td style="text-align: center;">-0.998***</td>
+<td style="text-align: center;">-1.308***</td>
+<td style="text-align: center;">-1.014***</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(0.519)</td>
+<td style="text-align: center;">(0.433)</td>
+<td style="text-align: center;">(0.270)</td>
+<td style="text-align: center;">(0.339)</td>
+<td style="text-align: center;">(0.269)</td>
+</tr>
+<tr>
+<td style="text-align: left;">非英语母语学生比例<span class="math inline">\(X_2\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">-0.650***</td>
+<td style="text-align: center;">-0.122***</td>
+<td style="text-align: center;">-0.488***</td>
+<td style="text-align: center;">-0.130***</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">(0.031)</td>
+<td style="text-align: center;">(0.033)</td>
+<td style="text-align: center;">(0.030)</td>
+<td style="text-align: center;">(0.036)</td>
+</tr>
+<tr>
+<td style="text-align: left;">免费午餐学生比例<span class="math inline">\(X_3\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">-0.547***</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">-0.529***</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">(0.024)</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">(0.038)</td>
+</tr>
+<tr>
+<td style="text-align: left;">收入援助学生比例<span class="math inline">\(X_4\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">-0.790***</td>
+<td style="text-align: center;">-0.048</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">(0.068)</td>
+<td style="text-align: center;">(0.059)</td>
+</tr>
+<tr>
+<td style="text-align: left;">常数项</td>
+<td style="text-align: center;">698.933***</td>
+<td style="text-align: center;">686.032***</td>
+<td style="text-align: center;">700.15***</td>
+<td style="text-align: center;">697.999***</td>
+<td style="text-align: center;">700.392***</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(10.364)</td>
+<td style="text-align: center;">(8.728)</td>
+<td style="text-align: center;">(5.568)</td>
+<td style="text-align: center;">(6.920)</td>
+<td style="text-align: center;">(5.537)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span>1-6</span> SER</td>
+<td style="text-align: center;">18.581</td>
+<td style="text-align: center;">14.464</td>
+<td style="text-align: center;">9.080</td>
+<td style="text-align: center;">11.654</td>
+<td style="text-align: center;">9.084</td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="math inline">\(\hat{R}^2\)</span></td>
+<td style="text-align: center;">0.049</td>
+<td style="text-align: center;">0.424</td>
+<td style="text-align: center;">0.773</td>
+<td style="text-align: center;">0.626</td>
+<td style="text-align: center;">0.773</td>
+</tr>
+<tr>
+<td style="text-align: left;">F</td>
+<td style="text-align: center;">19.26***</td>
+<td style="text-align: center;">223.82***</td>
+<td style="text-align: center;">453.48***</td>
+<td style="text-align: center;">170.37***</td>
+<td style="text-align: center;">361.68***</td>
+</tr>
+<tr>
+<td style="text-align: left;">obs</td>
+<td style="text-align: center;">420</td>
+<td style="text-align: center;">420</td>
+<td style="text-align: center;">420</td>
+<td style="text-align: center;">420</td>
+<td style="text-align: center;">420</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><p>注：括号中为异方差稳健标准误；***、**、*分布表示1%、5%、10%的显著性水平。</p><p>表1呈现了五个回归模型的结果。第一列是自变量和统计量。从第二列至第六列，每一列代表一个多元回归模型。尽管表中没有呈现出t统计量，但是在实践中，括号里有时候是t统计量。因为在原假设下，回归系数、t统计量、SER和p
+值可以相互计算得到。例如，（1）列中，<span class="math inline">\(t=\frac{-2.28-0}{0.519}=-4.39\)</span>，而<span class="math inline">\(4.39&gt;2.58\)</span>，因此，该系数在1%的显著性水平下显著。</p><p>（2）-（5）列包含控制变量。（2）列结果在前文已经讲过。（3）列是基准模型结果，一个核心解释变量——学生-老师比，两个控制变量——非英语母语学生比例和免费午餐学生比例。（4）和（5）列则是备择模型结果，主要是对比学生经济特征变化的效应。（4）列是免费午餐学生比例作为控制变量，（5）列是在（4）基础上再加入收入援助项目学生比例作为控制变量。</p><p><strong>第三步，经验结果分析</strong></p><p>1、控制了学生特征之后，学生-老师比对测试分数的效应几乎减半。而且这个效应对模型中的控制变量并不敏感（或者十分稳健）。在所有的情形下，学生-
+老师比的系数均在5%的水平下显著。在四个带有控制变量的模型中，即从（2）到（5），保持学生特征不变时，每个老师减少一个学生的话，平均测试分数会上升1
+分左右。</p><p>2、学生特征的变量是测试分数的有效预测量。从（1）列看，<span class="math inline">\(\hat{R}^2=0.049\)</span>说明，学生-老师比仅仅只能解释一小部分测试分数的变化。然而，当学生特征的变量加入回归模型后，<span class="math inline">\(\hat{R}^2\)</span>大幅度上升。学生特征变量的系数符号与散点图中呈现的模式一致：非英语母语学生比例越高、家境贫寒学生比例越高的班级，平均测试分数越低。</p><p>3、单个的控制变量并不总是显著：在（5）中，收入援助的学生比例对测试分数没有效应的原假设在5%的显著性水平下不能被拒绝。由于把这个控制变量增加进基准模型（3）中，对核心解释变量（学生-老师比）的系数及其标准误都没有太大影响，且这个控制变量的系数不显著，因此，收入援助的学生比例对于我们的分析目的来说是多余的控制变量。</p><p><strong>注：上述回归结果的stata命令为</strong></p><figure data-latex-placement="htbp">
+<img src="../assets/images/ch05/cmd.jpg" style="width:100.0%"/>
+</figure></main></div></body></html>

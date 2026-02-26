@@ -1,0 +1,74 @@
+:root { --bg:#f7f7f3; --ink:#17212b; --accent:#0d6e6e; --panel:#ffffff; --line:#d8ddd8; --link:#164b63; }
+* { box-sizing: border-box; }
+body { margin:0; padding:20px; background:var(--bg); color:var(--ink); font-family:"Noto Serif CJK SC","Songti SC","STSong",serif; line-height:1.75; }
+a { color:var(--link); }
+.book-topbar { display:flex; gap:12px; align-items:center; flex-wrap:wrap; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:10px 14px; margin:0 0 18px; }
+.pdf-btn { display:inline-block; background:var(--accent); color:#fff; text-decoration:none; padding:8px 12px; border-radius:8px; font-weight:600; }
+.hint { color:#55616d; font-size:14px; }
+#title-block-header, .cover-card { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:16px; margin-bottom:18px; }
+.attachment-card { text-align:center; }
+.attachment-card img { display:block; margin:10px auto 0; max-width:min(100%, 900px); border-radius:8px; border:1px solid var(--line); }
+.affiliation, .email { margin:4px 0; color:#2b3a44; }
+.email a { color:var(--link); }
+.chapter-nav { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
+.chapter-nav h2 { margin:0 0 10px; font-size:1.1rem; }
+.chapter-nav ul { margin:0; padding-left:18px; }
+.chapter-nav li { margin:5px 0; }
+.chapter-nav a { text-decoration:none; }
+.chapter-nav a:hover { text-decoration:underline; }
+.page-shell { display:grid; grid-template-columns:300px minmax(0, 1fr); gap:20px; align-items:start; }
+.sidebar-nav { position:sticky; top:20px; max-height:calc(100vh - 40px); overflow:auto; }
+.chapter-main { min-width:0; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:16px 20px; }
+.back-home { margin-top:0; }
+.is-current { font-weight:700; color:#0b4b4b; }
+.cover-hub { max-width:900px; margin:0 auto; }
+.cover-page-nav { max-width:980px; margin:0 auto 16px; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 16px; }
+.cover-module-main { max-width:980px; margin:0 auto; }
+.module1-center-page { text-align:center; }
+.module1-center-page .cover-page-nav p { text-align:center; }
+.home-image-page { margin:0; padding:20px; display:grid; grid-template-columns:320px minmax(0,1fr); gap:20px; align-items:start; min-height:100vh; background:linear-gradient(160deg,#edf3f5 0%, #f7f7f3 45%, #e8f0f2 100%); }
+.home-image-page .chapter-nav { position:sticky; top:20px; max-height:calc(100vh - 40px); overflow:auto; margin:0; }
+.home-image-main { min-height:calc(100vh - 40px); position:relative; border:1px solid var(--line); border-radius:12px; overflow:hidden; box-shadow:0 8px 24px rgba(20,40,60,.12); }
+.home-bg-layers { position:absolute; inset:0; display:block; }
+.home-bg-layers::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(236,244,247,.30) 0%, rgba(244,249,250,.40) 35%, rgba(250,252,253,.52) 100%); }
+.home-bg-layers img { width:100%; height:100%; object-fit:cover; filter:saturate(.92) contrast(.94) brightness(1.02); }
+.home-overlay-title { position:relative; z-index:2; text-align:center; margin:5vh auto 0; max-width:900px; background:rgba(246,250,252,.45) !important; border-color:rgba(209,222,229,.7) !important; backdrop-filter:blur(1.5px); box-shadow:0 6px 18px rgba(21,40,56,.08); }
+.home-overlay-title .title { font-size:clamp(42px, 5vw, 86px); margin-top:0; }
+.home-overlay-title .subtitle { font-size:clamp(26px, 2.5vw, 44px); }
+.home-overlay-title .author, .home-overlay-title .affiliation, .home-overlay-title .email, .home-overlay-title .date { font-size:clamp(22px, 1.8vw, 38px); }
+img, svg { max-width:100%; height:auto; }
+pre, code { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+pre { overflow-x:auto; background:#fbfcfb; border:1px solid var(--line); border-radius:8px; padding:10px 12px; }
+mjx-container[display="true"], .MathJax_Display { overflow-x:auto; overflow-y:hidden; }
+@media (max-width: 1100px) {
+  .page-shell { grid-template-columns: 1fr; }
+  .sidebar-nav { position:static; max-height:none; }
+  .home-image-page { grid-template-columns:1fr; min-height:auto; }
+  .home-image-page .chapter-nav { position:static; max-height:none; }
+  .home-image-main { min-height:auto; }
+  .home-bg-layers { position:relative; }
+  .home-bg-layers img { height:auto; }
+  .home-overlay-title { margin:16px; }
+}
+
+/* Homepage A4 cover layout */
+.home-a4-page { margin:0; padding:20px; display:grid; grid-template-columns:320px minmax(0,1fr); gap:20px; min-height:100vh; background:linear-gradient(160deg,#edf2f3 0%, #f7f7f3 45%, #e6edf1 100%); }
+.home-a4-page .chapter-nav { position:sticky; top:20px; max-height:calc(100vh - 40px); overflow:auto; margin:0; }
+.home-a4-main { display:flex; align-items:center; justify-content:center; min-height:calc(100vh - 40px); }
+.a4-sheet { position:relative; width:min(calc((100vh - 40px) * 210 / 297), 100%); aspect-ratio:210 / 297; border:1px solid rgba(196,208,217,.9); border-radius:12px; overflow:hidden; box-shadow:0 14px 34px rgba(22,35,46,.15); background:#e9edef; }
+.a4-bg { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:#e5ebee; }
+.a4-bg img { width:92%; height:92%; object-fit:contain; filter:blur(1.8px) saturate(.92) brightness(1.03); }
+.a4-overlay { position:absolute; inset:0; background:linear-gradient(180deg, rgba(243,248,250,.36) 0%, rgba(247,250,251,.44) 45%, rgba(250,252,252,.52) 100%); }
+.a4-content { position:relative; z-index:2; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; color:#182532; padding:8% 12%; }
+.a4-main-title { margin:0 0 18px; font-size:clamp(42px, 6.2vw, 92px); letter-spacing:.04em; }
+.a4-sub-title { margin:0 0 38px; font-size:clamp(26px, 3.2vw, 54px); font-weight:500; }
+.a4-meta-vertical { display:flex; flex-direction:column; gap:10px; font-size:clamp(22px, 2.1vw, 40px); }
+.a4-meta-vertical p { margin:0; }
+.a4-meta-vertical a { color:#123f58; }
+
+@media (max-width: 1100px) {
+  .home-a4-page { grid-template-columns:1fr; min-height:auto; }
+  .home-a4-page .chapter-nav { position:static; max-height:none; }
+  .home-a4-main { min-height:auto; }
+  .a4-sheet { width:100%; }
+}

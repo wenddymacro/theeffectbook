@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html><head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<meta content="许文立" name="author"/>
+<meta content="2026-02-26" name="dcterms.date"/>
+<title>应用计量经济学讲稿</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</head><body><div class="book-topbar">
+<a class="pdf-btn" download="" href="../assets/pdf/AppliedEconometrics.pdf">下载 PDF 版本</a>
+<span class="hint">若在线阅读异常，可直接下载 PDF。</span>
+</div><div class="page-shell"><aside class="sidebar-nav"><nav aria-label="章节导航" class="chapter-nav"><h2>章节目录</h2><ul><li><a href="chapter-01.html">特别声明</a></li><li><a href="chapter-02.html">第1章：引言</a></li><li><a href="chapter-03.html">第2章：概率与统计基础</a></li><li><a href="chapter-04.html">第3章：一元线性回归</a></li><li><a href="chapter-05.html">第4章：多元线性回归</a></li><li><a href="chapter-06.html">第5章：识别的评价框架</a></li><li><a href="chapter-07.html">第6章：面板数据模型</a></li><li><a href="chapter-08.html">第7章：工具变量法</a></li><li><a href="chapter-09.html">第8章：双重差分(DID)</a></li><li><a href="chapter-10.html">第9章：断点回归设计（RDD）</a></li><li><a href="chapter-11.html">第10章：其他因果效应识别方法</a></li><li><a href="chapter-12.html">第11章：合成控制法</a></li><li><a href="chapter-13.html">第12章：事件研究</a></li><li><a href="chapter-14.html">第13章：时间序列的自回归模型</a></li><li><a href="chapter-15.html">第14章：动态随机一般均衡模型</a></li><li><a class="is-current" href="chapter-16.html">第15章：极简CGE：一个教学式模型</a></li><li><a href="chapter-17.html">第16章：如何讲好经济学故事：经济学论文的流行形式</a></li><li><a href="chapter-18.html">第17章：基本数学工具</a></li></ul></nav></aside><main class="chapter-main"><p class="back-home"><a href="../index.html">← 返回封面</a></p><h1 id="极简cge一个教学式模型">极简CGE：一个教学式模型</h1><p>本讲稿基于<span style="color: blue">Don Fullerton and Chi L.
+Ta(2017,NBER):"Public Finance in a Nutshell: A Cobb Douglas Teaching
+Tool for General Equilibrium Tax Incidence and Excess
+Burden"</span>。</p><h2 id="导论">导论</h2><p>在经济学本科阶段，老师教授给学生们的大部分经济学理论是基于单一均衡价格和数量的单一市场供需曲线图，即用局部均衡来分析经济问题，而其它市场则假定不受影响。在一学期末尾，老师稍微涉及了一点一般均衡的内容，然后复杂性又让学生们望而生畏。因此，年轻的学生们重一开始就是被吓着了——一般均衡太难，还是算了吧！那就更不用谈，构建可计算一般均衡（CGE）模型来应用于现实经济问题了。</p><p>但是，许多经济问题必须要使用一般均衡模型讨论和解释。例如，“营改增”的受益分布必须要知道其对其它市场价格的影响——资本回报、工资率以及其它产品价格的影响等等。有人可能会疑惑，前九讲的回归分析也可以用来研究“营改增”的效应呀（其实，我也用回归分析写了几篇“营改增”效应的文章了，发出来的时候可以用来作为具体例子讲解）。但是，我还是想提醒，在某些情形下，用一般均衡模型得到的“营改增”效应可能与局部均衡模型结果不一致，甚至相反。</p><p>本讲就来描述一个极简化的可计算一般均衡（CGE）模型，简化到可以用手、计算器或者Excel来计算结果。本讲与第十讲DSGE一样，并不是为了与回归模型进行比较优劣，而是为了丰富经验计量分析的方法，从而呈现出经济学中多样化的经验研究。</p><h2 id="极简cgemclure-and-thirsk1975模型">极简CGE：McLure and
+Thirsk(1975)模型</h2><p>企业所得税可能会直接降低企业的投资回报，从而使得资本和劳动重新配置，这又会影响非企业回报、工资和产品价格等。为了研究企业所得税的受益归宿，Harberger(1962)构建了一个封闭经济模型，其中企业生产一种产品X，非企业部门生产另一种产品Y。该模型包括两种要素：资本和劳动。而且假设固定要素供给，完全就业，规模报酬不变和其它完美市场假设。每一种产品的生产函数为
+<span class="math display">\[X=F(K_x,L_x)\]</span>
+完全竞争市场假设意味着利润为0，但企业所得税应用于X企业所有者的资本收益，因此，Harberger将企业所得税建模为<span class="math inline">\(\tau_{kx}\)</span>，且对资本<span class="math inline">\(K_x\)</span>征收。</p><p>McLure and
+Thirsk(1975)模型则使用了CD生产函数。该模型对于研究任何一个两部门（房地产部门与制造业、农业与制造业等）的税收政策效应非常有用。它也可以用于研究任何两种投入（污染型投入和非污染型投入）的税收变化的效应。例如，CD生产函数为
+<span class="math display">\[\begin{equation}
+        X=AK_x^\alpha L_x^{1-\alpha},~~X=BK_y^\beta L_y^{1-\beta}
+    
+\end{equation}\]</span> 其中，<span class="math inline">\(A,B\)</span>分别表示两个部门的全要素生产率，参数<span class="math inline">\(\alpha=0.6,\beta=0.2\)</span>分别表示两个部门资本收入份额。K和L表示两部门的要素投入。</p><p>由于我们假设要素供给恒定，因此，家庭没有储蓄和劳动供给决策。整个经济的资源约束为：
+<span class="math display">\[\begin{equation}
+        K_x+K_y=K,~~L_x+L_y=L
+    
+\end{equation}\]</span></p><p>而家庭的效用函数为 <span class="math display">\[\begin{equation}
+        U=X^\gamma Y^{1-\gamma}
+    
+\end{equation}\]</span> 其中，参数<span class="math inline">\(\gamma=0.5\)</span>。 家庭的预算约束为 <span class="math display">\[\begin{equation}
+        P_xX+P_yY=I
+    
+\end{equation}\]</span> 其中，<span class="math inline">\(P_x,P_y\)</span>表示产品X，Y的价格，而I表示家庭的收入。家庭在预算约束下选择产品X,Y来实现效用最大化，从而得到产品的需求函数
+<span class="math display">\[\begin{equation}
+        X=\frac{\gamma I}{P_x},~~Y=\frac{(1-\gamma) I}{P_y}
+    
+\end{equation}\]</span>
+如果忘记了，大家可以拿起初级微观来看看消费者理论的内容。</p><p>在大部分一般均衡模型中，我们都会假定一种产品的价格固定不变，而解出其它产品的相对价格。但是McLure
+and Thirsk(1975)假设名义总收入固定来锚定价格水平，即<span class="math inline">\(I=\hat{I}\)</span>。因此，如果对产品X征税，那么，X的价格<span class="math inline">\(P_X\)</span>会上升，然后，两种产品的均衡数量会发生变化，Y的价格<span class="math inline">\(P_y\)</span>会下降，以至于总收入<span class="math inline">\(I=P_XX+P_YY\)</span>保持不变。在他们的模型中，<span class="math inline">\(\hat{I}=2400\)</span>，因此，我们可以计算得到家庭对产品X和Y的消费支出额：
+<span class="math display">\[\begin{equation}
+        P_XX=\gamma I=0.5 \times 2400=1200
+    
+\end{equation}\]</span> <span class="math display">\[\begin{equation}
+        P_yY=(1-\gamma) I=(1-0.5) \times 2400=1200
+    
+\end{equation}\]</span></p><p>下面，我们来看看家庭的收入来源。在上面的模型经济中，家庭的收入来源于资本所得、劳动收入和政府的转移支付（例如养老金等，此处假设政府将全部收入转移给家庭）。那么，家庭的收入为
+<span class="math display">\[\begin{equation}
+        I=RK+WL+T
+    
+\end{equation}\]</span> 其中，<span class="math inline">\(R\)</span>表示资本利率，<span class="math inline">\(W\)</span>表示工资率，<span class="math inline">\(T\)</span>表示政府税收（转移支付）。</p><p>政府对产品X征税，可以表示为<span class="math inline">\((1-\tau_x)P_xX\)</span>，<span class="math inline">\(\tau_x\)</span>表示消费者消费产品X的一种价外税。同理，如果我们要建模企业X的企业所得税，<span class="math inline">\((1-\tau_{k,x})R_xK_x\)</span>。其它的税收政策也可以类似建模。</p><p>企业决定投入要素<span class="math inline">\(K,L\)</span>来最大化其利润，约束为生产函数。由此我们可以得到要素需求函数：
+<span class="math display">\[\begin{equation}
+        (1-\tau_{k,x})R_x=\alpha \frac{(1-\tau_x)P_xX}{K_x},R_y=\beta
+\frac{P_yY}{K_y}
+    
+\end{equation}\]</span> <span class="math display">\[\begin{equation}
+        W_x=(1-\alpha) \frac{(1-\tau_x)P_xX}{L_x},W_y=(1-\beta)
+\frac{P_yY}{L_y}
+    
+\end{equation}\]</span>
+这个时候，我们就可以来分析税收（商品税和企业所得税）变化的效应了。如果我们只想要分析企业所得税的效应，可以设置<span class="math inline">\(\tau_x=0\)</span>，其它政策同理。</p><p>在初始均衡中，所有的税收都设置为0。McLure and
+Thirsk(1975)用1单位来定义每一种产品或要素作为一单位成本，那么，初始的价格<span class="math inline">\(P_K^0=P_L^0=P_x^0=P_y^0=1\)</span>，上标“0”表示初始均衡状态，且没有税收。那么，如方程（6）、（7）所示，两种产品的支出额为<span class="math inline">\(P_XX=P_yY=1200\)</span>，因此，两种产品的初始数量为<span class="math inline">\(X^0=Y^0=1200\)</span>。根据（9）和（10）可以计算得到，
+<span class="math display">\[\begin{equation}
+        R_x^0K_x^0=\alpha P_x^0X^0=0.6 \times 1200=720
+    
+\end{equation}\]</span> <span class="math display">\[\begin{equation}
+        W_x^0L_x^0=(1-\alpha) P_x^0X^0=0.4 \times 1200=480
+    
+\end{equation}\]</span> <span class="math display">\[\begin{equation}
+        R_y^0K_y^0=\beta P_y^0Y^0=0.2 \times 1200=240
+    
+\end{equation}\]</span> <span class="math display">\[\begin{equation}
+        W_y^0L_y^0=(1-\beta) P_y^0Y^0=0.8 \times 1200=960
+    
+\end{equation}\]</span> 在<span class="math inline">\(R_k^0=W_L^0=1\)</span>条件下，这些方程可以计算得到完整的初始数量，如表1所示：</p><table>
+<caption>初始均衡配置</caption>
+<tbody>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(L^0_x=480\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(L^0_y=960\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\hat{L}=1440\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(K^0_x=72\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(K^0_x=240\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\hat{K}=960\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(X^0=1200\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(Y^0=1200\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\hat{I}=2400\)</span></td>
+</tr>
+</tbody>
+</table><p>也就是说，对于CD生产函数和上述参数，计算得到的初始均衡条件为，总的劳动禀赋必须为1440，总的资本禀赋必须为960。</p><h2 id="税收政策的一般均衡效应cge应用">税收政策的一般均衡效应：CGE应用</h2><p>上一节中的式（9）和（10）可以用来分析政策的一般均衡效应。</p><h3 id="企业所得税">企业所得税</h3><p>本节以企业所得税为例，例如，设置产品税<span class="math inline">\(\tau_x=0\)</span>，而资本所得税<span class="math inline">\(\tau_{k,x}\)</span>为任何给定的税率。那么，式（9）之和为：
+<span class="math display">\[\begin{equation}
+        (1+\tau_{k,x})R_xK_x+R_yK_y=\alpha(1-\tau_x)P_xX+\beta
+P_yY=(\alpha \gamma +\beta (1-\gamma)) I
+    
+\end{equation}\]</span> 根据完全竞争市场，<span class="math inline">\(R_x=R_y=R\)</span>，且在均衡中，资本市场出清<span class="math inline">\(K_x+K_y=K\)</span>。那么，（15）式可以转换为 <span class="math display">\[\begin{equation}
+        R\hat{K}=con-\tau_{k,x}RK_x
+    
+\end{equation}\]</span> 其中，<span class="math inline">\(con=(\alpha
+\gamma +\beta (1-\gamma))
+I\)</span>表示为常数。这就意味着企业所得税的任何变化都会降低资本收入，而且变化幅度为<span class="math inline">\(\Delta\tau_{k,x}RK_x\)</span>。也就是说资本所得税率的变化所带来的负担完全由资本所有者承担了。同理，式（10）之和为：
+<span class="math display">\[\begin{equation}
+        W_xL_x+W_yL_y=(1-\alpha)P_xX+(1-\beta) P_yY=((1-\alpha)\gamma
++(1-\beta)(1-\gamma)) I
+    
+\end{equation}\]</span> 根据完全竞争市场，<span class="math inline">\(W_x=W_y=W\)</span>，且在均衡中，资本市场出清<span class="math inline">\(L_x+L_y=L\)</span>。那么，（17）式可以转换为 <span class="math display">\[\begin{equation}
+        W\hat{L}=con_L
+    
+\end{equation}\]</span> 其中，<span class="math inline">\(con_L=((1-\alpha)\gamma +(1-\beta)(1-\gamma))
+I\)</span>表示为常数。由（18）式可以看出，劳动者完全不承担任何企业所得税负担。</p><p>上面，我们分析了企业所得税变化对要素市场的影响。下面，我们来看看企业所得税变化对产品市场的影响。</p><p>从家庭的产品需求函数（5）可知，<span class="math inline">\(P_xX=\gamma
+I,P_yY=(1-\gamma)I\)</span>，也就是说，家庭对两种产品的需求是其收入的一定比例。而根据（8）式，家庭的收入为：
+<span class="math display">\[\begin{equation}
+        I=RK-\tau_{k,x}RK_x+WL+\tau_{k,x}RK_x
+    
+\end{equation}\]</span>
+(19)式等号右边的第一项为税收资本所得，第二项为劳动所得，第三项为政府转移支付。由此可见，家庭的收入<span class="math inline">\(I=R\hat{K}+W\hat{L}\)</span>。这就意味着，家庭的收入并不受企业所得税变化的影响，因此，企业所得税变化也不影响家庭对两种产品的需求。</p><h3 id="商品税增值税">商品税/增值税</h3><p>下面，我们来分析一下对X产品征税的一般均衡效应。假设<span class="math inline">\(\tau_x=0.30,\tau_{k,x}=0\)</span>。所有的初始条件都不变。如（19）式，产品的支出只与收入有关，因此，产品X的总支出仍然为<span class="math inline">\(P_x^{'}X^{'}=\gamma
+I=1200\)</span>，但是，此时，而企业生产X支付的商品税为<span class="math inline">\(\tau_xP_x^{'}X^{'}=360\)</span>。而方程（9）和（10）对于任何商品税率都成立，因此，
+<span class="math display">\[\begin{equation}
+        R^{'}K_x^{'}=\alpha
+P_x^{'}X^{'}(1-\tau_x)=0.6\times 1200 \times
+0.70=504,R^{'}K_y^{'}=240
+    
+\end{equation}\]</span> <span class="math display">\[\begin{equation}
+        W^{'}L_x^{'}=(1-\alpha)
+P_x^{'}X^{'}(1-\tau_x)=0.4\times 1200 \times
+0.70=336,W^{'}L_y^{'}=960
+    
+\end{equation}\]</span> 由此可得，企业支付的总的资本收入为<span class="math inline">\(R^{'}\hat{K}=504+240=744\)</span>，与征收商品税之前的资本收入<span class="math inline">\(R\hat{K}=960\)</span>相比下降幅度为216，也就是说，资本所有者承担的商品税负担为<span class="math inline">\(\frac{216}{360}\times
+100\%=60\%\)</span>。同理，企业支付的总的劳动收入为336+960=1296，与征税前劳动总收入1440相比下降了144，也就是说，劳动者承担的商品税负担为<span class="math inline">\(\frac{144}{360}\times 100\%=40\%\)</span>。</p><p>接下来，我们可以用上述结果来计算资本利率和工资率的变化，也就是说商品税对要素价格的扭曲程度。
+<span class="math display">\[R^{'}\hat{K}=744\]</span> <span class="math display">\[\hat{K}=960\]</span> <span class="math display">\[R^{'}=\frac{744}{960}=0.775\]</span>
+这就意味着商品税造成了资本价格下降了<span class="math inline">\(\frac{1-0.775}{1}\times
+100\%=22.5\%\)</span>。</p><p>同理，对劳动工资的扭曲程度为： <span class="math display">\[W^{'}\hat{L}=1296\]</span> <span class="math display">\[\hat{L}=1440\]</span> <span class="math display">\[W^{'}=\frac{1296}{1440}=0.90\]</span>
+这就意味着商品税造成了资本价格下降了<span class="math inline">\(\frac{1-0.90}{1}\times 100\%=10\%\)</span>。</p><p><strong>那么，为什么商品税对资本所有者的负担更重呢？</strong></p><p>这是因为商品税对产品X征收，而企业X是资本密集型产业。从CD生产函数来看，企业X的生产函数中资本收入占比达到0.6，而企业Y的资本收入占比只有0.2，因此，对X征收产品税会降低总资本的需求，由此对资本造成的税负更重。</p><p>下面，我们来看看商品税对资源配置造成的影响。 <span class="math display">\[K_x^{'}=\frac{504}{0.775}=650.32,K_y^{'}=\frac{240}{0.775}=309.68\]</span>
+<span class="math display">\[L_x^{'}=\frac{336}{0.9}=373.33,L_y^{'}=\frac{960}{0.9}=1066.67\]</span>
+注意：两个部门的资本总额还是960，劳动总额还是1440。因为要素市场是完全竞争的，对产品X征收30%的税会使得资本和劳动从部门X转移至部门Y，直到两个部门的要素回报相同。因为X部门是资本密集型，资本价格R的下降，会使得Y部门来租赁所有的剩余资本。</p><p>下面，我们来计算税收对产出的影响。根据表1中的初始均衡配置，我们可以计算得到全要素生产率参数A,B。也就是说
+<span class="math display">\[A=\frac{X^0}{(K_x^0)^{0.6}(L_x^0)^{0.4}}=1.96013\]</span>
+<span class="math display">\[B=\frac{Y^0}{(K_y^0)^{0.2}(L_y^0)^{0.8}}=1.64938\]</span></p><p>在上文中，我们已经计算得到征收商品税后，要素的重新配置情况。因此，可以计算得到两个部门新的产出量
+<span class="math display">\[X^{'}=A(K_x^{'})^{0.6}(L_x^{'})^{0.4}=1.96013\times
+650.32^{0.6}\times 373.33^{0.4}=1020.94\]</span> <span class="math display">\[Y^{'}=A(K_y^{'})^{0.2}(L_y^{'})^{0.8}=1.64938\times
+309.68^{0.2}\times 1966.67^{0.8}=1373.81\]</span></p><p>利用产出信息，可以计算得到产品价格 <span class="math display">\[P_x^{'}=\frac{1200}{X^{'}}=1.17538\]</span>
+<span class="math display">\[P_y^{'}=\frac{1200}{Y^{'}}=0.87348\]</span></p><p>表2中呈现了所有关键变量的均衡价格和数量。初始均衡在第（3）列，商品税<span class="math inline">\(\tau_x=0.30\)</span>在第四列，第五列为更高的商品税率<span class="math inline">\(\tau_x=0.31\)</span>。</p><table>
+<caption>关键变量的均衡值</caption>
+<tbody>
+<tr>
+<td style="text-align: center;">(1)变量</td>
+<td style="text-align: center;">(2)定义</td>
+<td style="text-align: center;">(3)<span class="math inline">\(\tau_x=0\)</span></td>
+<td style="text-align: center;">(4)<span class="math inline">\(\tau_x=0.3\)</span></td>
+<td style="text-align: center;">(5)<span class="math inline">\(\tau_x=0.31\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">面板A：配置与价格</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(K_x\)</span></td>
+<td style="text-align: center;">企业X投入的资本</td>
+<td style="text-align: center;">720</td>
+<td style="text-align: center;">650.323</td>
+<td style="text-align: center;">674.296</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(L_x\)</span></td>
+<td style="text-align: center;">企业X投入的劳动</td>
+<td style="text-align: center;">480</td>
+<td style="text-align: center;">373.333</td>
+<td style="text-align: center;">369.368</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(K_y\)</span></td>
+<td style="text-align: center;">企业Y投入的资本</td>
+<td style="text-align: center;">240</td>
+<td style="text-align: center;">309.677</td>
+<td style="text-align: center;">312.704</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(L_y\)</span></td>
+<td style="text-align: center;">企业Y投入的劳动</td>
+<td style="text-align: center;">960</td>
+<td style="text-align: center;">1066.67</td>
+<td style="text-align: center;">1070.63</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(X\)</span></td>
+<td style="text-align: center;">X产量</td>
+<td style="text-align: center;">1200</td>
+<td style="text-align: center;">1020.94</td>
+<td style="text-align: center;">1013.75</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(Y\)</span></td>
+<td style="text-align: center;">Y产量</td>
+<td style="text-align: center;">1200</td>
+<td style="text-align: center;">1373.81</td>
+<td style="text-align: center;">1380.58</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(R\)</span></td>
+<td style="text-align: center;">资本利率</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.775</td>
+<td style="text-align: center;">0.7675</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(W\)</span></td>
+<td style="text-align: center;">工资率</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.9</td>
+<td style="text-align: center;">0.89667</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(P_x\)</span></td>
+<td style="text-align: center;">产品X的价格</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1.17538</td>
+<td style="text-align: center;">1.18372</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(P_y\)</span></td>
+<td style="text-align: center;">产品Y的价格</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.87348</td>
+<td style="text-align: center;">0.8692</td>
+</tr>
+<tr>
+<td style="text-align: center;">面板B：福利指标</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(\hat{P}\)</span></td>
+<td style="text-align: center;">总的价格水平</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2.0265</td>
+<td style="text-align: center;">2.02869</td>
+</tr>
+<tr>
+<td style="text-align: center;">U</td>
+<td style="text-align: center;">效用水平</td>
+<td style="text-align: center;">1200</td>
+<td style="text-align: center;">1184.306</td>
+<td style="text-align: center;">1183.03</td>
+</tr>
+<tr>
+<td style="text-align: center;">EB</td>
+<td style="text-align: center;">超额负担</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">31.387</td>
+<td style="text-align: center;">33.934</td>
+</tr>
+<tr>
+<td style="text-align: center;">RE</td>
+<td style="text-align: center;">转移支付</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">360</td>
+<td style="text-align: center;">372</td>
+</tr>
+<tr>
+<td style="text-align: center;">AER</td>
+<td style="text-align: center;">平均超额负担EB/RE</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">0.08719</td>
+<td style="text-align: center;">0.09124</td>
+</tr>
+<tr>
+<td style="text-align: center;">MEB</td>
+<td style="text-align: center;">边际超额负担</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">0.21271</td>
+</tr>
+</tbody>
+</table><h3 id="福利效应">福利效应</h3><p>下面，我们来计算商品税的福利效应，用支出函数来获得超额负担。</p><p>首先，产品的需求函数为<span class="math inline">\(X=\frac{\gamma
+I}{P_x},Y=\frac{(1-\gamma)I}{P_y}\)</span>，将它们带入家庭效用函数<span class="math inline">\(U=X^{\gamma}Y^{1-\gamma}\)</span>得到间接效用函数：
+<span class="math display">\[\begin{equation}
+        V(P_x,P_y,I)=\bigg(\frac{\gamma
+I}{P_x}\bigg)^\gamma\bigg[\frac{(1-\gamma)I}{P_y}\bigg]^{1-\gamma}=\frac{I^\gamma
+I^{1-\gamma}}{\bigg(\frac{P_x}{\gamma}\bigg)^{\gamma}\bigg(\frac{P_y}{1-\gamma}\bigg)^{1-\gamma}}=\frac{I}{\hat{P}}
+    
+\end{equation}\]</span> 其中，<span class="math inline">\(\hat{P}=\bigg(\frac{P_x}{\gamma}\bigg)^{\gamma}\bigg(\frac{P_y}{1-\gamma}\bigg)^{1-\gamma}\)</span>是“理想”价格指标，由两种产品的价格合成得到。变形间接效用函数得到支出函数：
+<span class="math display">\[\begin{equation}
+        I=E(\hat{P},U)=U\times \hat{P}
+    
+\end{equation}\]</span></p><p><strong>注：更复杂的CGE模型可以参看“Introduction to Computable
+General Equilibrium Models”，Mary E.
+Burfisher(2011)，或者直接使用“量化经济分析平台”的全球模型和国家模型来操作，请参见《平台使用说明书》</strong>。</p></main></div></body></html>

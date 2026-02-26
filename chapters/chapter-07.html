@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html><head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<meta content="许文立" name="author"/>
+<meta content="2026-02-26" name="dcterms.date"/>
+<title>应用计量经济学讲稿</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../assets/css/style.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</head><body><div class="book-topbar">
+<a class="pdf-btn" download="" href="../assets/pdf/AppliedEconometrics.pdf">下载 PDF 版本</a>
+<span class="hint">若在线阅读异常，可直接下载 PDF。</span>
+</div><div class="page-shell"><aside class="sidebar-nav"><nav aria-label="章节导航" class="chapter-nav"><h2>章节目录</h2><ul><li><a href="chapter-01.html">特别声明</a></li><li><a href="chapter-02.html">第1章：引言</a></li><li><a href="chapter-03.html">第2章：概率与统计基础</a></li><li><a href="chapter-04.html">第3章：一元线性回归</a></li><li><a href="chapter-05.html">第4章：多元线性回归</a></li><li><a href="chapter-06.html">第5章：识别的评价框架</a></li><li><a class="is-current" href="chapter-07.html">第6章：面板数据模型</a></li><li><a href="chapter-08.html">第7章：工具变量法</a></li><li><a href="chapter-09.html">第8章：双重差分(DID)</a></li><li><a href="chapter-10.html">第9章：断点回归设计（RDD）</a></li><li><a href="chapter-11.html">第10章：其他因果效应识别方法</a></li><li><a href="chapter-12.html">第11章：合成控制法</a></li><li><a href="chapter-13.html">第12章：事件研究</a></li><li><a href="chapter-14.html">第13章：时间序列的自回归模型</a></li><li><a href="chapter-15.html">第14章：动态随机一般均衡模型</a></li><li><a href="chapter-16.html">第15章：极简CGE：一个教学式模型</a></li><li><a href="chapter-17.html">第16章：如何讲好经济学故事：经济学论文的流行形式</a></li><li><a href="chapter-18.html">第17章：基本数学工具</a></li></ul></nav></aside><main class="chapter-main"><p class="back-home"><a href="../index.html">← 返回封面</a></p><h1 id="面板数据模型">面板数据模型</h1><p>正如第五讲所述，一项经验研究可能存在的主要问题：遗漏变量偏误、变量测量误差、反向因果、模型设定错误、样本选择偏误、异方差和序列相关。第四讲呈现的多元回归方法可以消除某些遗漏变量偏误。但多元回归只能应对遗漏变量的数据可用的情形。如果遗漏变量的数据不可用，那么，多元回归中就不能包含它们，此时，OLS估计系数就可能存在遗漏变量偏误。在特定的数据类型（面板数据）下，本讲呈现了一种方法来降低不可观测的遗漏变量偏误。</p><p>线性回归和匹配方法非常适合于控制非随机/观测数据中的混淆因子，但是它们依赖于一个核心假设：条件无混淆性</p><p><span class="math display">\[(Y_0, Y_1) \perp T | X\]</span></p><p>换言之，这些方法要求所有的混淆因子都是已知的，或是可测度的，基于此，我们可以基于这些可观测混淆因子，并认为处理近似随机。但实践中，我们并不能观测到所有的混淆因子。例如，婚姻对男人收入的影响。在经济学中，大家通常会观测到，已婚男性相较于单身男赚取更多的收入。但是我们并不清楚结婚是不是男人收入的原因（也就是说，这个关系是否是因果关系）。我本人在结婚前年收入10万左右，那个时候一个人吃饱全家不饿，还完8万房贷，每年还有2-3万存款，觉得生活无忧。但结婚后，我的收入每年增长较快，现在应该算是中高收入人群了吧。但是我自己是博士呀，我在气候变化宏观经济学、DSGE和DID领域做得还算可以，老师嘛，越来越吃香。所以我很怀疑，结婚促使我的收入增长。也可能是在武大认识很久了让我们结婚可能性更大，且赚取了更高的收入。这就意味着，教育可能是婚姻对收入因果效应的混淆因子。</p><p>对此，我们可以测度出我们从幼儿园到博士读了多少年书，然后在回归中控制它。但是，也有可能是因为“漂亮”（这个topic在经济学中有很多研究，例如，Hale
+G, Regev T, Rubinstein Y. Do looks matter for an academic career in
+economics?[J]. Journal of Economic Behavior &amp; Organization, 2023,
+215: 406-420. Chen Q, Wang X, Zhao Q. Appearance discrimination in
+grading?− Evidence from migrant schools in China[J]. Economics Letters,
+2019, 181:
+116-119.）也就是说，长得更帅气的男人更可能结婚，并赚取得更多。可惜，漂亮不可观测，每个人的标准不一样。</p><p>这让我们陷入困境，如果我们遗漏了漂亮这个混淆因子，回归肯定是有偏的。</p><p>下面，我们以“醉驾”问题为例，来说明面板数据模型的原理与实际操作。使用的数据是美国48个州，1982-1988年的交通事故（traffic
+fatalities）、酒精税（alcohol taxes）、醉驾法律（drunk driving
+laws）以及其他相关变量。</p><h2 id="面板数据">面板数据</h2><p>我们在第一讲中提到过面板数据的类型。在<strong>面板数据</strong>中，有n个观测单元/个体，每个观测个体有两期及多期观测值。</p><p>在计量经济学中通常用<span class="math inline">\(X_{it}\)</span>来表示面板数据，其中下标i表示观测个体，下标t表示观测时间。本讲使用的美国交通事故数据就是面板数据，它包含美国的48个州（n=48），每个州有7年的观测值（T=7），共<span class="math inline">\(48\times7=336\)</span>个样本。</p><p>与面板数据相关的两个重要概念：</p><p>（1）<strong>平衡面板</strong>，即样本中每一个个体，每一时期均有观测值，如图1所示；</p><figure data-latex-placement="htbp" id="fig:digit">
+<img src="../assets/images/ch07/balancedpanel.jpg" style="width:70.0%"/>
+<figcaption>平衡面板</figcaption>
+</figure><p>（2）<strong>非平衡面板</strong>，即面板中至少有一个时期、一个个体的观测值是缺失的，如图2所示。</p><figure data-latex-placement="htbp" id="fig:digit">
+<img src="../assets/images/ch07/unbalancedpanel.jpg" style="width:70.0%"/>
+<figcaption>非平衡面板</figcaption>
+</figure><p>在美国，每年将近40000高速交通事故，其中近1/4与醉驾有关。Levitt and
+Porter（2001）估计在凌晨1点-3点开车的司机中，且达到法定饮酒年龄的，有25%的司机饮酒后开车上路，他们造成的交通事故至少是没有饮酒的司机的13倍。（注：中国这一情况也非常严重。2009年全国查处酒后驾驶案件31.3万起，其中醉酒驾驶4.2万起。2010年，全国查处醉驾达8.7万起。
+2009年1-8月，共发生3206起，造成1302人死亡，其中，酒后驾车肇事2162起，造成893人死亡；醉酒驾车肇事1044起，造成409人死亡。）</p><p>下面，我们来看看美国政府实施的抑制醉驾行为的政策到底有多大效果。我们所使用的数据中包含：每年每个州的交通事故数和防止酒驾的政策（包括酒驾法律、酒精税）。交通死亡指标使用<strong>死亡率（vfrall）——每万人年交通死亡人数</strong>。政策指标是酒精帅，使用<strong>啤酒税（BeerTax）</strong>，且经过1988年通胀处理的实际啤酒税。</p><p>图3呈现了1982年交通死亡率与酒精税之间的散点图和拟合线。散点图上的每一个点都代表着1982年给定税率下的死亡率。从图中，可以看出死亡率与税率正相关。回归结果如下</p><p><span class="math display">\[\begin{equation}
+    vfrall=2.01+0.15BeerTax（1982年）
+\end{equation}\]</span></p><p>回归结果显示，酒精税的系数为0.15，t统计量为1.12。也就是说，实际酒精税对死亡率的效应为正，但是在10%的水平下不显著。</p><figure data-latex-placement="htbp" id="fig:digit">
+<img src="../assets/images/ch07/1982.png" style="width:70.0%"/>
+<figcaption>1982年交通死亡率与酒精税</figcaption>
+</figure><p>从散点图和回归结果来看，这个结果似乎有点奇怪。那么，我们再来看看1988年的结果。其散点图和趋势线如图4所示。回归方程如下
+<span class="math display">\[\begin{equation}
+    vfrall=1.86+0.44BeerTax（1988年）
+\end{equation}\]</span></p><p>1988年回归结果显示，酒精税的系数为0.44，且t统计量为3.43，也就是说酒精税对死亡率的效应在1%的水平下显著为正。</p><figure data-latex-placement="htbp" id="fig:digit">
+<img src="../assets/images/ch07/1988.png" style="width:70.0%"/>
+<figcaption>1988年交通死亡率与酒精税</figcaption>
+</figure><p>虽然，1982年和1988年的估计结果有所差异，但是酒精税的系数均为正。从字面来理解，实际酒精税越高，交通死亡率越高。这似乎与政策设计初衷相悖，也与常识相悖。那么，我们能得出结论：提高酒精税会增加死亡率？</p><p>答案显然是否定的！因为上述两个回归结果可能存在很大的遗漏变量偏误。还有许多影响交通死亡率，但又未包含在回归中的因素：汽车质量；公路质量；在农村开车还是在城市；道路上车流密度；对待饮酒和开车的态度等等。这些因素都可能与酒精税有关。如果它们与酒精税相关，就会导致回归结果存在遗漏变量偏误。第四讲为我们提供了一种解决有观测数据的遗漏变量问题的方法——加入其它解释变量（控制变量）。但是，上述有些因素是不可观测的——例如，对饮酒和开车的态度，那怎么办？</p><p>如果这些不可观测的遗漏变量不随时间变化，那么，我们可以使用另一种方法来降低遗漏变量偏误。这种方法就是<strong>固定效应模型</strong>。</p><h2 id="固定效应回归">固定效应回归</h2><h3 id="两期比较">两期“比较”</h3><p>在前面的回归中，我们分别对1982年和1988年的截面数据进行回归。那么，我们现在将两年数据结合在一起，形成一个两期的面板数据（n=48，T=2）。这样我们就可以将1988年的被解释变量（死亡率）与1982年进行比较。也就是说，在不可观测因素恒定（在时间维度不变，在个体维度可变）时，我们关注于被解释变量“前”“后”变化。</p><p>用<span class="math inline">\(Z_i\)</span>表示影响第i个州的交通死亡率的因素，它不随时间变化，因此没有时间下标。那么，这个包含不可观测因素的两期面板数据总体回归线为
+<span class="math display">\[\begin{equation}
+    vfrall_{it}=\beta_{0}+\beta_{1}BeerTax_{it}+\beta_{2}Z_i+u_{it}
+\end{equation}\]</span> 其中，<span class="math inline">\(u_{it}\)</span>表示随机误差项，n=1，⋯⋯，48；T=1982,1988。</p><p>因为<span class="math inline">\(Z_i\)</span>不随时间变化，也就是说，它在1982年和1988年是一样的。那么，在上述回归方程（3）中，我们可以通过分析1982年-1988年死亡率的变化来消除<span class="math inline">\(Z_i\)</span>的影响。从数学形式来看，1982年和1988年的回归方程分别为：
+<span class="math display">\[\begin{equation}
+    vfrall_{i1982}=\beta_{0}+\beta_{1}BeerTax_{i1982}+\beta_{2}Z_i+u_{i1982}
+\end{equation}\]</span> <span class="math display">\[\begin{equation}
+    vfrall_{i1988}=\beta_{0}+\beta_{1}BeerTax_{i1988}+\beta_{2}Z_i+u_{i1988}
+\end{equation}\]</span></p><p>然后，我们将（5）式减去（4）式来消除<span class="math inline">\(Z_i\)</span>的影响： <span class="math display">\[\begin{equation}
+    vfrall_{i1988}-vfrall_{i1982}=\beta_{1}(BeerTax_{i1988}-BeerTax_{i1982})+(u_{i1988}-u_{i1982})
+\end{equation}\]</span></p><p>从（6）式中可以很直观的看出：不可观测因素虽然影响一个州的死亡率，但是它不会在1982年和1988年间变动，因此，它们也不会对这个期间的死亡率变化产生任何影响。</p><p>也就说，<strong>通过分析被解释变量Y与解释变量X的变化量可以消除不随时间变化的不可观测因素，从而消除这种来源的遗漏变量偏误。</strong></p><p>图5呈现了1982-1988两年的散点图和拟合线。图中，dvfrall是1988年vfrall与1982年之差，dbeertax同理。</p><figure data-latex-placement="htbp" id="fig:digit">
+<img src="../assets/images/ch07/8288.png" style="width:70.0%"/>
+<figcaption>1982、1988年交通死亡率与酒精税</figcaption>
+</figure><p>回归方程为 <span class="math display">\[\begin{equation}
+    vfrall_{i1988}-vfrall_{i1982}=-0.072-1.04(BeerTax_{i1988}-BeerTax_{i1982})
+\end{equation}\]</span></p><p>回归系数为-1.04，且t统计量为-2.93，在1%的水平显著。与第一节的截面数据结果相比，上述回归结果显示实际酒精税对死亡率有显著地负向影响，也符合经济理论。</p><p>上述回归只对包含两期的面板数据可用。而我们所使用的数据集包含7年长度。</p><h3 id="固定效应回归-1">固定效应回归</h3><p>为了消除不随时间变化的不可观测因素带来的影响，可使用固定效应回归。在这种情形下，固定效应回归有n个截距，每个州都有一个。这些截距可以用一个指示变量（二值变量）来表示。而所有不随时间变化的遗漏变量影响都会被这些指示变量吸收。</p><p>我们用Y和X来分别表示死亡率和酒精税。那么，我们可以将（3）式写成 <span class="math display">\[\begin{equation}
+    Y_{it}=\beta_{0}+\beta_{1}X_{it}+\beta_{2}Z_i+u_{it}
+\end{equation}\]</span></p><p>我们的目的就是估计出<span class="math inline">\(\beta_1\)</span>，即酒精税对交通死亡率的影响，且控制不可观测的地区特征<span class="math inline">\(Z_i\)</span>。因为<span class="math inline">\(Z_i\)</span>只在各州之间变化，而不随时间变化，因此，我们可以令<span class="math inline">\(\alpha_i=\beta_0+\beta_{2}Z_i\)</span>。因此，（8）式可以写成：
+<span class="math display">\[\begin{equation}
+    Y_{it}=\beta_{1}X_{it}+\alpha_i+u_{it}
+\end{equation}\]</span></p><p>（9）式就是<strong>固定效应模型</strong>。需要注意的是，上述总体回归线的斜率对于每个州都是相同的，但是每个州又对应着不同的截距。因为<span class="math inline">\(\alpha_i\)</span>考虑的是个体i的效应，因此，它也被称为<strong>个体固定效应</strong>。</p><p>我们回忆一下二值变量（虚拟变量），上述固定效应回归也可以用二值虚拟变量来表示，例如，如果i=1，令<span class="math inline">\(D_{1i}=1\)</span>，否则为0；如果i=2，令<span class="math inline">\(D_{2i}=1\)</span>，否则为0；等等。由于有48
+个州，因此，设置48个虚拟变量。但是为了避免<strong>虚拟变量陷阱</strong>（即完全多重共线性），我们要删除一个虚拟变量（任意删除即可）。因此，（9）式可变形为：
+<span class="math display">\[\begin{equation}
+    Y_{it}=\beta_{0}+\beta_{1}X_{it}+\gamma_2D_{2i}+\cdots+\gamma_nD_{ni}+u_{it}
+\end{equation}\]</span></p><p>由（10）式可知，<span class="math inline">\(\beta_0,\beta_1,\gamma_2,\cdots,\gamma_n\)</span>是待估计系数。现在，我们来对比一下（9）式和（10）式：（9）式中，第一个地区的截距为<span class="math inline">\(\alpha_1\)</span>，在（10）式中，第一个地区的截距为<span class="math inline">\(\beta_{0}\)</span>，因此，<span class="math inline">\(\alpha_1=\beta_{0}\)</span>，以此类推第二个第三个等等地区的截距为<span class="math inline">\(\alpha_i=\beta_0+\gamma_i\)</span>。也就是说，（9）和（10）是等价的，固定效应模型有两种表达方式。而在这两种表达式中，所有地区的斜率都是一样的，个体固定效应来源于不随时间可变的不可观测地区异质性。</p><p>大家可能意识到，上述固定效应模型并没有包含可观测的控制变量。包含其他解释变量的模型同第四讲的多元回归。下面，我们继续讲解固定效应模型的估计和推断。</p><p><strong>I. 估计和推断</strong></p><p>（9）式中存在不可观测因素<span class="math inline">\(\alpha_i\)</span>，因此，不能直接使用OLS。而（10）从理论上讲可以直接使用OLS估计，但是由于其有k+n个参数（k个解释变量的系数，n-1个虚拟变量系数和一个常数项），因此，一旦个体数量非常大，在实践中是很难实施OLS估计（在软件中输入k+n个变量）。幸好，现在有了Stata，它直接可以替我们跑出回归结果。下面，我们稍微看看stata在估计固定效应模型时的工作原理。</p><p><strong>个体去均值算法</strong>：stata一般会执行两步：</p><p><strong>第一步，每个变量减去其个体层面的均值。</strong></p><p>例如，在（9）式中，被解释变量Y的个体层面均值为<span class="math inline">\(\overline{Y_i}=\frac{1}{T}\sum_{t=1}^{T}Y_{it}\)</span>，解释变量X也同理。然后，用Y减去均值，<span class="math inline">\(Y_{it}-\overline{Y_i}\)</span>，X和u也同上。因此，可以得到
+<span class="math display">\[\begin{equation}
+    \tilde{Y}_{it}=\beta_{1}\tilde{X}_{it}+\tilde{u}_{it}
+\end{equation}\]</span></p><p><strong>第二步,估计上述去均值回归方程</strong>。</p><p>我们还是利用美国48个州的交通死亡率和酒精税数据来看看上述固定效应回归结果：
+<span class="math display">\[\begin{equation}
+    \tilde{vfrall}_{it}=-0.66\tilde{BeerTax}_{it}（去均值结果）
+\end{equation}\]</span></p><p><span class="math display">\[\begin{equation}
+    vfrall_{it}=-0.66BeerTax_{it}+\alpha_i
+\end{equation}\]</span></p><p>上文我们提到过，上述个体固定效应模型也遗漏了一些变量，除了可观测的变量之外，还有一个重要的遗漏变量就是不可观测的不随地区变化的因素。</p><p><strong>II. 时间固定效应</strong></p><p>类似于个体固定效应，时间固定效应是不随个体变，而随时间变化的因素。我们用<span class="math inline">\(S_t\)</span>表示，那么，只包含时间固定效应的模型为
+<span class="math display">\[\begin{equation}
+    Y_{it}=\beta_{0}+\beta_{1}X_{it}+\beta_{3}S_t+u_{it}
+\end{equation}\]</span></p><p>与上述个体固定效应同理，由于<span class="math inline">\(S_t\)</span>不随地区变化，只随时间变化，因此，令<span class="math inline">\(\lambda_t=\beta_{0}+\beta_{3}S_t\)</span>。那么，（14）式可以变为
+<span class="math display">\[\begin{equation}
+    Y_{it}=\beta_{1}X_{it}+\lambda_t+u_{it}
+\end{equation}\]</span></p><p>同理，每一个时期都有一个截距，截距<span class="math inline">\(\lambda_t\)</span>就是时间t对被解释变量Y的效应，也被称为<strong>时间固定效应</strong>。</p><p>同样的，时间固定效应模型也有两种表达方式：一种是时间虚拟变量；另一种是（15）式。
+<span class="math display">\[\begin{equation}
+    vfrall_{it}=-0.02BeerTax_{it}+\lambda_t
+\end{equation}\]</span> 加入时间固定效应之后，上述回归结果并不显著。</p><p>下面，我们来看看同时加入个体固定效应和时间固定效应的模型： <span class="math display">\[\begin{equation}
+    Y_{it}=\beta_{1}X_{it}+\alpha_i+\lambda_t+u_{it}
+\end{equation}\]</span></p><p>与个体固定效应的算法相同，时间固定效应和双向固定效应的算法也可以采用“去均值算法”。</p><p>首先，Y和X分别减去其个体层面均值和时间层面均值；</p><p>然后，用两次差分之后的去均值变量进行回归，用OLS估计系数。</p><p>另一种方式，就是我们常用的Y和X只减去个体层面的均值，然后设立时间虚拟变量，用<strong>fe</strong>命令进行回归。用这种方式得到的回归结果为
+<span class="math display">\[\begin{equation}
+    Y_{it}=-0.64X_{it}+\alpha_i+\lambda_t+u_{it}
+\end{equation}\]</span> 回归结果在10%的水平下显著。</p><p><strong>注：一般来讲，面板数据都需要控制个体固定效应和时间固定效应，因为这可以消除不可观测的随时间可变不随个体变化的因素或者不随个体变化随时间变化的因素所引起的遗漏变量偏误。在使用家庭（企业）层面、省（市县）层面的数据后，还要同时控制家庭固定效应、省固定效应和时间固定效应。</strong></p><p><strong>III. 聚类标准误</strong></p><p>在面板数据模型中，我们假设个体之间是独立的，但是在个体层面内部，由于存在不同时间的观测值，因此它们不一定独立。这就可能存在个体内部的自相关或者序列相关问题。这就意味着误差项u可能也存在自相关问题。此时，截面数据回归的异方差稳健标准误就不再有效。为了消除面板数据回归中误差项自相关问题，我们要使用异方差-自相关一致性（HAC）标准误，也就是<strong>聚类标准误</strong>。我们上述的回归结果都是使用的聚类标准误。</p><p><strong>注：在面板数据回归中，一定要使用“聚类标准误”，也就是个体层面的聚类</strong></p><h3 id="例子">例子</h3><figure data-latex-placement="htbp" id="fig:digit">
+<img src="../assets/images/common/results.jpg" style="width:70.0%"/>
+<figcaption>交通死亡率与酒精税</figcaption>
+</figure></main></div></body></html>
